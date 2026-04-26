@@ -1,5 +1,325 @@
 1:"$Sreact.fragment"
-2:I[75049,["/paragon-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/paragon-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"OutletBoundary"]
-3:"$Sreact.suspense"
-0:{"buildId":"O7OHyBljfPNrbxaHTQWbz","rsc":["$","$1","c",{"children":[["$","div",null,{"className":"min-h-screen bg-background text-foreground font-sans selection:bg-primary/20","children":[["$","div",null,{"className":"fixed inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(#2a2a2a_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20 dark:opacity-40"}],["$","div",null,{"className":"container mx-auto px-4 sm:px-8 lg:px-12 py-8 max-w-screen-2xl h-[100dvh] flex flex-col overflow-hidden","children":[["$","div",null,{"className":"mb-6 space-y-4 shrink-0","children":[["$","div",null,{"className":"flex items-center gap-4","children":["$","a",null,{"href":"/","className":"text-sm text-muted-foreground hover:text-foreground transition-colors","children":"← Back to Leaderboard"}]}],["$","div",null,{"children":["$","h1",null,{"className":"text-4xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/50","children":"Task"}]}]]}],["$","div",null,{"className":"relative overflow-hidden rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/10 via-card/90 to-background/90 px-5 pb-10 pt-6 text-center shadow-[0_0_0_1px_hsl(var(--primary)/0.18),0_28px_72px_-32px_hsl(var(--foreground)/0.45)] backdrop-blur-sm sm:px-8 sm:pb-14 sm:pt-8","children":[["$","div",null,{"className":"pointer-events-none absolute -right-16 -top-16 h-36 w-36 rounded-full bg-primary/20 blur-3xl sm:-right-14 sm:-top-14 sm:h-40 sm:w-40"}],["$","div",null,{"className":"pointer-events-none absolute -left-20 bottom-0 h-32 w-32 rounded-full bg-foreground/10 blur-3xl sm:h-36 sm:w-36"}],["$","div",null,{"className":"relative mx-auto mb-8 inline-flex items-center rounded-full border border-primary/40 bg-primary/15 px-3 py-1 text-xs font-semibold tracking-[0.12em] text-foreground sm:text-sm sm:tracking-[0.16em]","children":"⏳ PIPELINE PENDING REVIEW"}],["$","p",null,{"className":"relative mx-auto max-w-2xl px-4 text-center text-lg font-semibold tracking-wide text-foreground sm:px-5 sm:text-xl","children":[6," sample cases generated — pending review"]}],["$","p",null,{"className":"relative mx-auto mt-2 max-w-2xl px-4 text-left text-sm leading-relaxed text-muted-foreground sm:px-5","children":"Your sample cases are ready. Before moving forward, we do a quick review together to make sure everything looks right and aligns with real-world usage."}],["$","div",null,{"className":"relative mx-auto mt-8 max-w-2xl rounded-xl bg-primary/10 px-4 py-4 text-left sm:px-5","children":[["$","p",null,{"className":"text-base font-semibold text-foreground sm:text-lg text-center","children":"Next step: join Slack for review"}],["$","p",null,{"className":"mt-1 text-sm leading-relaxed text-muted-foreground","children":"We've sent you a Slack invitation to your registered email with Zealt. Please join and we'll walk through the next step together."}],["$","p",null,{"className":"mt-3 text-xs text-muted-foreground","children":["If you don't see it, just reach out at"," ",["$","a",null,{"href":"mailto:zealtdev@tabbyml.com","className":"font-normal text-foreground underline decoration-primary/60 underline-offset-4 hover:text-primary transition-colors","children":"zealtdev@tabbyml.com"}],"."]}]]}]]}]]}]]}],[["$","script","script-0",{"src":"/paragon-benchmark/_next/static/chunks/228acf0e8a2a4542.js","async":true}],["$","script","script-1",{"src":"/paragon-benchmark/_next/static/chunks/be08138953094657.js","async":true}]],["$","$L2",null,{"children":["$","$3",null,{"name":"Next.MetadataOutlet","children":"$@4"}]}]]}],"loading":null,"isPartial":false}
-4:null
+2:I[42654,["/paragon-benchmark/_next/static/chunks/ca023ad85cd7aeee.js","/paragon-benchmark/_next/static/chunks/2ad5122eae704b1a.js","/paragon-benchmark/_next/static/chunks/228acf0e8a2a4542.js","/paragon-benchmark/_next/static/chunks/be08138953094657.js"],"TasksPageClient"]
+13:I[75049,["/paragon-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/paragon-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"OutletBoundary"]
+14:"$Sreact.suspense"
+3:T59d,# Execute ActionKit Action with Dynamic Parameters
+
+## Background
+Paragon's ActionKit API allows you to execute 3rd-party actions programmatically. You need to write a Node.js script that sends a Slack message using ActionKit, dynamically setting the channel name based on the current trail ID.
+
+## Requirements
+- Write a Node.js script at `/home/user/project/send_message.js`.
+- The script must read the `trail_id` from `/logs/trail_id`.
+- The script must use `fetch` to send a `POST` request to `https://actionkit.useparagon.com/projects/${PARAGON_PROJECT_ID}/actions`.
+- The request must include the `Authorization: Bearer ${PARAGON_USER_TOKEN}` header.
+- The JSON body must specify the action `SLACK_SEND_MESSAGE`.
+- The parameters must include:
+  - `channel`: `#test-channel-${trail_id}`
+  - `message`: "Hello from ActionKit!"
+- The script should execute the request and print the response status.
+
+## Implementation Guide
+1. Read the `trail_id` from `/logs/trail_id`.
+2. Read `PARAGON_PROJECT_ID` and `PARAGON_USER_TOKEN` from environment variables.
+3. Construct the fetch request to the ActionKit API.
+4. Execute the script using `node /home/user/project/send_message.js` and save the output to `/home/user/project/output.log`.
+
+## Constraints
+- Project path: `/home/user/project`
+- Log file: `/home/user/project/output.log`
+- Do not hardcode the `trail_id`, `PARAGON_PROJECT_ID`, or `PARAGON_USER_TOKEN`.
+
+## Integrations
+- Slack4:T43e,# Handle ActionKit API Errors
+
+## Background
+When using Paragon's ActionKit API, requests might fail due to invalid JSON schemas (e.g., missing parameters) or invalid authentication tokens. It is crucial to handle these errors gracefully and log them.
+
+## Requirements
+- Create a Node.js script `call_action.js` in `/home/user/project`.
+- The script should send a POST request to `https://actionkit.useparagon.com/projects/${process.env.PROJECT_ID}/actions`.
+- Use the `PARAGON_USER_TOKEN` environment variable for the Bearer token in the `Authorization` header.
+- Send a JSON body with `action: "SLACK_SEND_MESSAGE"` and an empty `parameters: {}` object.
+- If the request fails (non-2xx status), catch the error gracefully without crashing.
+- Write the error details to `/home/user/project/error_log.json` as a JSON object containing `status` (the HTTP status code) and `message` (the error message or response body).
+
+## Constraints
+- Project path: `/home/user/project`
+- Log file: `/home/user/project/error_log.json`
+- Use Node.js built-in `fetch` (Node 18+).
+
+## Integrations
+- None5:T728,# Execute ActionKit Action from LLM
+
+## Background
+You are building an AI agent that uses Paragon's ActionKit to perform actions on behalf of users in connected 3rd-party SaaS apps. The LLM has generated a JSON payload specifying an action to execute, which is saved in `/home/user/app/llm_response.json`.
+
+## Requirements
+- Initialize a Node.js project in `/home/user/app`.
+- Write a script `execute.js` that reads the pre-existing LLM JSON output from `llm_response.json`.
+- The script must generate a Paragon User Token (JWT) server-side using the `PARAGON_SIGNING_KEY` environment variable. The JWT payload must include `sub: "user-123"` and an `iat` (issued at time).
+- The script must make a POST request to `https://actionkit.useparagon.com/projects/{PARAGON_PROJECT_ID}/actions` (using the `PARAGON_PROJECT_ID` environment variable) with the JWT in the `Authorization: Bearer <token>` header.
+- The request body must match the parsed JSON from `llm_response.json`.
+- The script must save the HTTP response status code and response JSON body to `/home/user/app/output.json` in the format `{ "status": 200, "data": { ... } }`.
+
+## Implementation Guide
+1. `cd /home/user/app` and run `npm init -y`.
+2. Install the `jsonwebtoken` package to sign the JWT.
+3. Create `execute.js` using Node's built-in `fetch` (available in Node 18+).
+4. Read `llm_response.json`.
+5. Generate the JWT using `jsonwebtoken.sign` with the HS256 algorithm.
+6. Make the POST request to the ActionKit API.
+7. Write the response status and parsed JSON body to `output.json`.
+
+## Constraints
+- Project path: `/home/user/app`
+- Log file: `/home/user/app/output.json`
+- Pre-existing file: `/home/user/app/llm_response.json`
+- Use Node.js built-in `fetch`.
+- The script must be executable via `node execute.js`.
+
+## Integrations
+- Paragon (via ActionKit API)6:T58d,# Handle Unauthorized Token in ActionKit
+
+## Background
+Paragon ActionKit allows AI agents to execute integration actions. The provided Node.js script `fetch_actions.js` attempts to fetch available actions for a user but currently uses an invalid/expired token, resulting in a 401 Unauthorized error.
+
+## Requirements
+- Update `fetch_actions.js` to catch the 401 error when calling the ActionKit API.
+- If a 401 error occurs, generate a new valid Paragon User Token (JWT) using the `jsonwebtoken` library. The token must use the `PARAGON_SIGNING_KEY` from environment variables, use the `RS256` algorithm, and include `sub` (set to `"test_user"`) and `iat` (current time in seconds).
+- Retry the API call with the new token.
+- Save the resulting JSON actions to `actions.json`.
+
+## Implementation Guide
+1. Install the `jsonwebtoken` package in the project directory.
+2. Update `fetch_actions.js` to import `jsonwebtoken`.
+3. Wrap the `fetch` call in a try/catch or check `response.ok`.
+4. On a 401 status, call `jwt.sign({ sub: "test_user", iat: Math.floor(Date.now() / 1000) }, process.env.PARAGON_SIGNING_KEY, { algorithm: "RS256" })`.
+5. Retry the `fetch` with the new token in the `Authorization: Bearer <token>` header.
+6. Write the JSON response to `actions.json`.
+
+## Constraints
+- Project path: `/home/user/actionkit-project`
+- The script should be executed via `node fetch_actions.js`.
+
+## Integrations
+- Paragon7:T981,# Headless Connection Trigger
+
+## Background
+Paragon provides a Connect Portal that allows users to authorize third-party integrations. You need to implement a custom UI button that triggers the Paragon headless connection flow for Slack and handles the promise returned by the connection attempt.
+
+## Requirements
+- Create a simple web page with a button labeled "Connect Slack" (id: `connect-slack`).
+- When clicked, the button must call `paragon.connect('slack')` using the `@useparagon/connect` SDK.
+- The page must include the `@useparagon/connect` SDK.
+- The frontend must authenticate with Paragon before allowing the connection. To do this, it should fetch a user token from your backend.
+- The backend must generate a Paragon User Token (JWT) signed with the `PARAGON_SIGNING_KEY` environment variable. The JWT must include a `sub` claim (e.g., "test-user-1") and `iat`.
+- The backend must also expose the `PARAGON_PROJECT_ID` to the frontend.
+- On successful connection, update a DOM element with id `status` to show "Connected". On failure, update it to "Failed".
+
+## Implementation Guide
+1. Initialize a Node.js project in `/home/user/app`.
+2. Install `express`, `jsonwebtoken`, and `@useparagon/connect`.
+3. Create `server.js` that serves static files from a `public` directory and provides a `/api/token` endpoint. The token endpoint should generate a JWT using `process.env.PARAGON_SIGNING_KEY` and return it along with `process.env.PARAGON_PROJECT_ID`.
+4. Create `public/index.html` with the "Connect Slack" button (`<button id="connect-slack">Connect Slack</button>`) and a status div (`<div id="status">Pending</div>`).
+5. In `public/index.html`, load the SDK (e.g., via a bundler like Webpack/Vite, or a script tag if supported, but typically you build it or use a module bundler. For simplicity, you can use a build step with `esbuild` or `webpack`, or serve it from `node_modules`).
+6. Fetch `/api/token`, call `paragon.authenticate(projectId, token)`, and add a click listener to the button that calls `paragon.connect('slack')`. Handle the promise to update the `#status` text.
+
+## Constraints
+- Project path: `/home/user/app`
+- Start command: `npm run build && npm start` (configure your `package.json` to build the frontend if you use a bundler, then start the express server).
+- Port: 3000
+- The backend must read `PARAGON_PROJECT_ID` and `PARAGON_SIGNING_KEY` from the environment.
+
+## Integrations
+- Slack8:T470,# Programmatically Install a Workflow Action
+
+## Background
+You need to use the Paragon SDK to authenticate a user and programmatically install a workflow action for them using `paragon.installAction`.
+
+## Requirements
+- Initialize a Node.js project in `/home/user/paragon-app`.
+- Install `@useparagon/connect`.
+- Create a script `install.js` that authenticates with Paragon using `paragon.authenticate(PROJECT_ID, USER_TOKEN)`.
+- Use `paragon.installAction(integrationType, actionId, params)` to install the `send_message` action for the `slack` integration.
+- The parameters for the action should be `{ channel: '#general' }`.
+- Log the result to `/home/user/paragon-app/output.log`.
+
+## Implementation Guide
+1. `cd /home/user/paragon-app`
+2. `npm init -y`
+3. `npm install @useparagon/connect`
+4. Create `install.js` with the required logic.
+5. Run the script using `node install.js`.
+
+## Constraints
+- Project path: `/home/user/paragon-app`
+- Log file: `/home/user/paragon-app/output.log`
+- `PROJECT_ID` and `USER_TOKEN` should be read from environment variables `PARAGON_PROJECT_ID` and `PARAGON_USER_TOKEN`.
+
+## Integrations
+- None9:T5ba,# Send a GraphQL Request via the Paragon Proxy API
+
+## Background
+Paragon's Proxy API allows you to make direct, authenticated requests to any 3rd-party endpoint using the `X-Paragon-Proxy-Url` header. You need to write a Node.js script that uses the Proxy API to send a GraphQL request to GitHub.
+
+## Requirements
+- Complete the `/home/user/app/script.js` file to send a POST request to the Paragon Proxy API.
+- The Proxy API endpoint should be constructed using the `PARAGON_PROJECT_ID` environment variable: `https://proxy.useparagon.com/projects/${PARAGON_PROJECT_ID}/sdk/proxy/github`.
+- Set the `Authorization` header to `Bearer ${PARAGON_USER_TOKEN}` using the `PARAGON_USER_TOKEN` environment variable.
+- Set the `X-Paragon-Proxy-Url` header to the GitHub GraphQL endpoint: `https://api.github.com/graphql`.
+- The request body must be a JSON object containing the GraphQL query: `query { viewer { login } }`.
+- The script must print the JSON response to the console.
+
+## Implementation Guide
+1. Read `PARAGON_PROJECT_ID` and `PARAGON_USER_TOKEN` from `process.env`.
+2. Use the built-in `fetch` API (Node.js 18+) to make the request.
+3. Ensure the `Content-Type` header is set to `application/json`.
+4. Print the response using `console.log(JSON.stringify(await response.json()))`.
+
+## Constraints
+- Project path: `/home/user/app`
+- Log file: `/home/user/app/output.log`
+- Do not use any third-party libraries (use built-in `fetch`).
+
+## Integrations
+- GitHuba:T57a,# Handle Paragon Proxy API OAuth Errors
+
+## Background
+When using the Paragon Proxy API to make requests to 3rd-party integrations, the underlying OAuth token might expire and fail to refresh. In such cases, the Proxy API returns a 401 status. Your application needs to handle this gracefully by logging a specific message.
+
+## Requirements
+You are provided with a Node.js script `/home/user/app/fetch_data.js` that makes a GET request to the Paragon Proxy API (`https://proxy.useparagon.com/projects/TEST_PROJECT/sdk/proxy/slack/users.identity`) using an invalid token, which will simulate an OAuth refresh failure (401 Unauthorized).
+Currently, it does not handle 401 errors specifically.
+Modify `/home/user/app/fetch_data.js` so that if the Proxy API returns a 401 status, the script writes the exact string `User needs to reconnect` to `/home/user/app/error.log`.
+
+## Implementation Guide
+1. Open `/home/user/app/fetch_data.js`.
+2. Check the response status from the `fetch` call.
+3. If `response.status === 401`, write `User needs to reconnect` to `error.log` using the `fs` module (e.g., `fs.writeFileSync('error.log', 'User needs to reconnect')`).
+4. Ensure the script does not throw an unhandled exception when a 401 occurs.
+
+## Constraints
+- Project path: /home/user/app
+- Log file: /home/user/app/error.log
+- Do not change the existing URL or fetch options, just add the error handling logic.b:T6f1,# Paragon Proxy API Pagination
+
+## Background
+Paragon's Proxy API allows making direct, authenticated requests to any 3rd-party endpoint using the `X-Paragon-Proxy-Url` header. When retrieving a list of resources from a 3rd party API, pagination is often required.
+
+## Requirements
+Write a Node.js script `fetch_all.js` in `/home/user/project` that exports an async function `fetchAll(projectId, userToken, integrationType, path, limit)`.
+The function must use the global `fetch` API to make requests to Paragon's Proxy API and aggregate the results from all pages.
+
+- The Proxy base URL is `https://proxy.useparagon.com/projects/{projectId}/sdk/proxy/{integrationType}`.
+- Requests must include the `Authorization: Bearer {userToken}` header.
+- The actual 3rd-party endpoint path should be passed in the `X-Paragon-Proxy-Url` header.
+- The 3rd party API uses cursor-based pagination. The response JSON contains an array of items in the `items` property, and a `next_cursor` property (if there are more pages).
+- You must append `cursor={cursor}` to the `X-Paragon-Proxy-Url` for subsequent pages. Handle existing query parameters correctly (use `?` or `&`).
+- The function should return an array of all aggregated items. If `limit` is provided, it should stop fetching once the total number of items reaches or exceeds `limit` and return exactly `limit` items.
+
+## Implementation Guide
+1. Initialize a Node.js project in `/home/user/project` (already done in the initial state).
+2. Create `fetch_all.js`.
+3. Implement `fetchAll` using a `while` loop to follow the `next_cursor`.
+4. Export the function using CommonJS: `module.exports = fetchAll;`.
+
+## Constraints
+- Project path: /home/user/project
+- Use native `fetch` (available in Node.js 18+).
+- No third-party libraries.
+c:T437,# Send a POST Request via Paragon Proxy API
+
+## Background
+Paragon provides a Proxy API to make direct, authenticated requests to 3rd-party endpoints. You need to write a Node.js script that uses the Proxy API to send a POST request with a JSON payload to Slack's `chat.postMessage` endpoint.
+
+## Requirements
+- Write a Node.js script at `/home/user/project/send_proxy_post.js`.
+- The script must read `PARAGON_PROJECT_ID` and `PARAGON_USER_TOKEN` from environment variables.
+- It must send a POST request to `https://proxy.useparagon.com/projects/${process.env.PARAGON_PROJECT_ID}/sdk/proxy/slack`.
+- It must include the header `X-Paragon-Proxy-Url: https://slack.com/api/chat.postMessage`.
+- It must include the header `Authorization: Bearer ${process.env.PARAGON_USER_TOKEN}`.
+- It must include the header `Content-Type: application/json`.
+- The JSON payload must be exactly `{"channel": "#general", "text": "Hello via Proxy API!"}`.
+
+## Constraints
+- Project path: `/home/user/project`
+- Use `node` to run the script. `fetch` is available in Node.js.
+
+## Integrations
+- Slackd:T586,# Paragon Proxy API Rate Limit Retry
+
+## Background
+Paragon's Proxy API allows making direct, authenticated requests to 3rd-party endpoints. However, these 3rd-party APIs (like Salesforce) may enforce rate limits (HTTP 429). We need a robust request function that handles these rate limits gracefully.
+
+## Requirements
+- Create a Node.js module `request.js` that exports a function `makeProxyRequest(projectId, userToken, integration, targetUrl)`.
+- The function must make a request to the Paragon Proxy API endpoint: `https://proxy.useparagon.com/projects/{projectId}/sdk/proxy/{integration}`.
+- It must include the `Authorization: Bearer {userToken}` header and the `X-Paragon-Proxy-Url: {targetUrl}` header.
+- If the response status is 429 (Too Many Requests), the function must retry the request up to 3 times.
+- It should implement exponential backoff for the retries (e.g., 1s, 2s, 4s) or respect the `Retry-After` header if present.
+- If it succeeds, it should return the JSON response.
+- If it fails after 3 retries, it should throw an error.
+- Use the built-in `fetch` API (Node >= 18).
+
+## Implementation Guide
+1. Initialize a Node.js project in `/home/user/workspace`.
+2. Implement the `makeProxyRequest` function in `request.js`.
+
+## Constraints
+- Project path: `/home/user/workspace`
+- The script must be named `request.js` and export the function using CommonJS (`module.exports = makeProxyRequest`).e:T4d8,# Display User Integrations with Paragon SDK
+
+## Background
+You need to build a simple React application that uses the `@useparagon/connect` SDK to authenticate a user and display their connected integrations.
+
+## Requirements
+- Initialize a React app (e.g., using Vite) in `/home/user/app`.
+- Install `@useparagon/connect`.
+- Create a component that takes `projectId` and `userToken` from environment variables (`VITE_PARAGON_PROJECT_ID` and `VITE_PARAGON_TOKEN`).
+- Authenticate the user using `paragon.authenticate(projectId, userToken)`.
+- After authentication, fetch the user state using `paragon.getUser()`.
+- Display the user's authenticated state (specifically, the `authenticated` boolean and the `integrations` object) in a `div` with the ID `paragon-user-state`.
+
+## Implementation Guide
+1. Initialize a Vite React project in `/home/user/app`.
+2. Install the `@useparagon/connect` SDK.
+3. Implement the authentication and state fetching logic in your main `App.jsx` or `App.tsx` component.
+4. Render the user state as a JSON string inside `<div id="paragon-user-state"></div>`.
+
+## Constraints
+- Project path: /home/user/app
+- Start command: `npm run dev`
+- Port: 5173
+- Use the `@useparagon/connect` SDK.
+
+## Integrations
+- Nonef:T45c,# Paragon SDK Expired Token Handling
+
+## Background
+When initializing the Paragon SDK, developers must provide a valid user token (JWT). If the token is expired, the SDK will throw an error. It is important to handle this error gracefully.
+
+## Requirements
+- Create a Node.js script `index.js` in `/home/user/app`.
+- Generate an expired Paragon User Token using the `jsonwebtoken` package. The token must have `sub: "test-user"`, `exp` set to 1 hour ago, and use the secret `"test-secret"`.
+- Attempt to initialize the Paragon SDK using `paragon.authenticate("test-project-id", token)`.
+- Catch any errors thrown by the authentication attempt and write the error message to `/home/user/app/error.log`.
+
+## Implementation Guide
+1. Initialize a Node.js project in `/home/user/app`.
+2. Install `@useparagon/connect` and `jsonwebtoken`.
+3. Create `index.js` to generate the expired JWT.
+4. Call `paragon.authenticate` and catch the error.
+5. Write the error message to `error.log`.
+
+## Constraints
+- Project path: /home/user/app
+- Log file: /home/user/app/error.log
+- Start command: node index.js
+
+## Integrations
+- None0:{"buildId":"bvk7dUIpF8iXyznxGTlU_","rsc":["$","$1","c",{"children":[["$","div",null,{"className":"min-h-screen bg-background text-foreground font-sans selection:bg-primary/20","children":[["$","div",null,{"className":"fixed inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(#2a2a2a_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20 dark:opacity-40"}],["$","$L2",null,{"tasksData":[{"taskName":"actionkit_batch_execute","instruction":"# Paragon ActionKit Batch Execution\n\n## Background\nYou are building an AI agent that needs to execute multiple Paragon ActionKit actions in sequence. You need to write a Node.js module that takes an array of action payloads and executes them one by one.\n\n## Requirements\n- Create a Node.js script at `/home/user/project/batch_execute.js`.\n- The script must define a function `async function executeActions(projectId, userToken, actions)`.\n- For each action in the `actions` array, it must make a `POST` request to `https://actionkit.useparagon.com/projects/${projectId}/actions`.\n- The request must include the header `Authorization: Bearer ${userToken}` and `Content-Type: application/json`.\n- The request body must be the JSON stringified action payload.\n- The function should return an array of responses (or await each fetch).\n- Export the function using `module.exports = executeActions;`.\n\n## Constraints\n- Project path: `/home/user/project`\n- Use the built-in `fetch` API.","trials":[{"job_name":"2026-04-26__23-53-56","trial_name":"actionkit_batch_execute__9f3qdt2","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":110.627,"latency_breakdown":{"env_setup":10.812,"agent_setup":20.901,"agent_exec":59.048,"verifier":6.025},"taskName":"actionkit_batch_execute","jobId":"9f3qdt2","exec_duration":59.048}]},{"taskName":"actionkit_dynamic_params","instruction":"$3","trials":[{"job_name":"2026-04-26__23-53-56","trial_name":"actionkit_dynamic_params__HGPAsrQ","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":172.681,"latency_breakdown":{"env_setup":10.701,"agent_setup":20.504,"agent_exec":107.733,"verifier":17.874},"taskName":"actionkit_dynamic_params","jobId":"HGPAsrQ","exec_duration":107.733}]},{"taskName":"actionkit_error_handling","instruction":"$4","trials":[{"job_name":"2026-04-26__23-53-56","trial_name":"actionkit_error_handling__kbtA5cR","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":123.037,"latency_breakdown":{"env_setup":10.875,"agent_setup":28.031,"agent_exec":63.507,"verifier":5.56},"taskName":"actionkit_error_handling","jobId":"kbtA5cR","exec_duration":63.507}]},{"taskName":"actionkit_execute_action_from_llm","instruction":"$5","trials":[{"job_name":"2026-04-26__23-53-56","trial_name":"actionkit_execute_action_from_ll__Z7Snp6U","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":173.201,"latency_breakdown":{"env_setup":10.603,"agent_setup":20.633,"agent_exec":107.346,"verifier":16.114},"taskName":"actionkit_execute_action_from_ll","jobId":"Z7Snp6U","exec_duration":107.346}]},{"taskName":"actionkit_fetch_available","instruction":"# Fetch ActionKit Available Actions\n\n## Background\nParagon's ActionKit API allows you to retrieve a list of available actions for an authenticated user in JSON Schema format. This is useful for passing tool definitions to an LLM.\n\n## Requirements\n- You need to fetch the available actions for a Paragon project using `curl`.\n- The Project ID is `1234abcd`.\n- The Paragon User Token is `dummy_jwt_token_123`.\n- Save the HTTP response body to `/home/user/actions.json`.\n\n## Implementation Guide\n1. Construct a `curl` GET request to `https://actionkit.useparagon.com/projects/1234abcd/actions`.\n2. Include the `Authorization: Bearer dummy_jwt_token_123` header.\n3. Include the `Content-Type: application/json` header.\n4. Output the result directly to `/home/user/actions.json`.\n\n## Constraints\n- Project path: /home/user\n- Log file: /home/user/actions.json\n- Must be a single `curl` command (or a short bash script) that outputs to `actions.json`.\n\n## Integrations\n- None","trials":[{"job_name":"2026-04-26__23-53-56","trial_name":"actionkit_fetch_available__SoA9p3U","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":116.054,"latency_breakdown":{"env_setup":10.589,"agent_setup":23.911,"agent_exec":60.055,"verifier":6.915},"taskName":"actionkit_fetch_available","jobId":"SoA9p3U","exec_duration":60.055}]},{"taskName":"actionkit_unauthorized_token","instruction":"$6","trials":[{"job_name":"2026-04-26__23-53-56","trial_name":"actionkit_unauthorized_token__jL5MQvK","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":186.155,"latency_breakdown":{"env_setup":10.232,"agent_setup":27.353,"agent_exec":81.911,"verifier":52.118},"taskName":"actionkit_unauthorized_token","jobId":"jL5MQvK","exec_duration":81.911}]},{"taskName":"headless_connection_trigger","instruction":"$7","trials":[{"job_name":"2026-04-26__23-53-56","trial_name":"headless_connection_trigger__R4zLiJV","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":302.593,"latency_breakdown":{"env_setup":16.576,"agent_setup":25.052,"agent_exec":120.075,"verifier":125.975},"taskName":"headless_connection_trigger","jobId":"R4zLiJV","exec_duration":120.075}]},{"taskName":"install_action_programmatically","instruction":"$8","trials":[{"job_name":"2026-04-26__23-53-56","trial_name":"install_action_programmatically__riFM5ss","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":639.11,"latency_breakdown":{"env_setup":18.291,"agent_setup":19.246,"agent_exec":577.469,"verifier":4.725},"taskName":"install_action_programmatically","jobId":"riFM5ss","exec_duration":577.469}]},{"taskName":"proxy_api_graphql","instruction":"$9","trials":[{"job_name":"2026-04-26__23-53-56","trial_name":"proxy_api_graphql__uLHkk59","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":148.028,"latency_breakdown":{"env_setup":14.998,"agent_setup":33.781,"agent_exec":77.233,"verifier":6.232},"taskName":"proxy_api_graphql","jobId":"uLHkk59","exec_duration":77.233}]},{"taskName":"proxy_api_oauth_error","instruction":"$a","trials":[{"job_name":"2026-04-26__23-53-56","trial_name":"proxy_api_oauth_error__TNW6jSM","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":229.25,"latency_breakdown":{"env_setup":14.46,"agent_setup":85.383,"agent_exec":86.35,"verifier":29.239},"taskName":"proxy_api_oauth_error","jobId":"TNW6jSM","exec_duration":86.35}]},{"taskName":"proxy_api_pagination_handling","instruction":"$b","trials":[{"job_name":"2026-04-26__23-53-56","trial_name":"proxy_api_pagination_handling__h73vJZn","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":122.737,"latency_breakdown":{"env_setup":3.586,"agent_setup":18.103,"agent_exec":80.817,"verifier":4.898},"taskName":"proxy_api_pagination_handling","jobId":"h73vJZn","exec_duration":80.817}]},{"taskName":"proxy_api_post_json","instruction":"$c","trials":[{"job_name":"2026-04-26__23-53-56","trial_name":"proxy_api_post_json__hAH9mqK","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":112.026,"latency_breakdown":{"env_setup":8.674,"agent_setup":19.471,"agent_exec":63.413,"verifier":4.87},"taskName":"proxy_api_post_json","jobId":"hAH9mqK","exec_duration":63.413}]},{"taskName":"proxy_api_rate_limit","instruction":"$d","trials":[{"job_name":"2026-04-26__23-53-56","trial_name":"proxy_api_rate_limit__5AL5hk7","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":129.363,"latency_breakdown":{"env_setup":4.077,"agent_setup":18.963,"agent_exec":84.941,"verifier":5.583},"taskName":"proxy_api_rate_limit","jobId":"5AL5hk7","exec_duration":84.941}]},{"taskName":"sdk_disconnect_integration","instruction":"# Disconnect Integration via SDK\n\n## Background\nYou are building a user settings page for your web application. You need to implement a function that allows users to disconnect their active Slack integration using the Paragon SDK.\n\n## Requirements\n- You have a Node.js project at `/home/user/app`.\n- The file `/home/user/app/disconnect.js` exports a function `disconnectSlack()`.\n- Implement the `disconnectSlack` function to call the Paragon SDK to uninstall the `slack` integration.\n- The function must await the SDK call.\n\n## Implementation Guide\n1. Open `/home/user/app/disconnect.js`.\n2. Use the imported `paragon` object from `@useparagon/connect`.\n3. Call `paragon.uninstallIntegration('slack')` inside the `disconnectSlack` function.\n\n## Constraints\n- Project path: /home/user/app\n- Do not modify the imports.\n- Return the promise from `paragon.uninstallIntegration`.","trials":[{"job_name":"2026-04-26__23-53-56","trial_name":"sdk_disconnect_integration__58tpuE3","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":114.957,"latency_breakdown":{"env_setup":6.289,"agent_setup":36.448,"agent_exec":51.26,"verifier":5.655},"taskName":"sdk_disconnect_integration","jobId":"58tpuE3","exec_duration":51.26}]},{"taskName":"sdk_event_listener","instruction":"# Paragon SDK Event Listener\n\n## Background\nYou have a basic React application initialized at `/home/user/app`. The `@useparagon/connect` SDK is installed.\n\n## Requirements\nModify `/home/user/app/src/App.js` to set up a global event listener for successful integration connection events.\nWhen an integration is successfully installed, it must log the message `Integration installed: <integrationId>` to the console (where `<integrationId>` is the actual ID from the event).\n\n## Implementation Guide\n1. Open `/home/user/app/src/App.js`.\n2. Add a call to `paragon.subscribe` to listen for the `onIntegrationInstall` event.\n3. In the event callback, extract the `integrationId` from the event object.\n4. Add `console.log(\"Integration installed: \" + event.integrationId);` inside the callback.\n\n## Constraints\n- Project path: /home/user/app\n- You must use `paragon.subscribe` with the `\"onIntegrationInstall\"` event name.\n","trials":[{"job_name":"2026-04-26__23-53-56","trial_name":"sdk_event_listener__EynWpaN","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":110.489,"latency_breakdown":{"env_setup":6.436,"agent_setup":34.461,"agent_exec":47.346,"verifier":7.472},"taskName":"sdk_event_listener","jobId":"EynWpaN","exec_duration":47.346}]},{"taskName":"sdk_get_user_state_display","instruction":"$e","trials":[{"job_name":"2026-04-26__23-53-56","trial_name":"sdk_get_user_state_display__ixqPXST","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":163.198,"latency_breakdown":{"env_setup":6.076,"agent_setup":23.443,"agent_exec":115.244,"verifier":4.827},"taskName":"sdk_get_user_state_display","jobId":"ixqPXST","exec_duration":115.244}]},{"taskName":"sdk_init_expired_token","instruction":"$f","trials":[{"job_name":"2026-04-26__23-53-56","trial_name":"sdk_init_expired_token__nr8VpeZ","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":117.486,"latency_breakdown":{"env_setup":4.345,"agent_setup":19.496,"agent_exec":75.543,"verifier":4.757},"taskName":"sdk_init_expired_token","jobId":"nr8VpeZ","exec_duration":75.543}]}]}]]}],["$L10","$L11"],"$L12"]}],"loading":null,"isPartial":false}
+10:["$","script","script-0",{"src":"/paragon-benchmark/_next/static/chunks/228acf0e8a2a4542.js","async":true}]
+11:["$","script","script-1",{"src":"/paragon-benchmark/_next/static/chunks/be08138953094657.js","async":true}]
+12:["$","$L13",null,{"children":["$","$14",null,{"name":"Next.MetadataOutlet","children":"$@15"}]}]
+15:null
