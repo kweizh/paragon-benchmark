@@ -1,0 +1,7 @@
+{
+  "action": "SLACK_SEND_MESSAGE",
+  "parameters": {
+    "channel": "#general",
+    "message": "Hello from Paragon!"
+  }
+}

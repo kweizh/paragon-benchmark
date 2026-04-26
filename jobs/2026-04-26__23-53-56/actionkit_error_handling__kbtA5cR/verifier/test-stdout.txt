@@ -1,0 +1,48 @@
+downloading uv 0.9.7 x86_64-unknown-linux-gnu
+no checksums to verify
+installing to /root/.local/bin
+  uv
+  uvx
+everything's installed!
+
+To add $HOME/.local/bin to your PATH, either restart your shell or run:
+
+    source $HOME/.local/bin/env (sh, bash, zsh)
+    source $HOME/.local/bin/env.fish (fish)
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 18ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 3 items
+
+tests/test_final_state.py ..F                                            [100%]
+
+=================================== FAILURES ===================================
+___________________________ test_error_log_contents ____________________________
+
+    def test_error_log_contents():
+        """Priority 3: Verify the error log contains the required JSON structure."""
+        with open(LOG_FILE, "r") as f:
+            try:
+                data = json.load(f)
+            except json.JSONDecodeError:
+                pytest.fail(f"File {LOG_FILE} does not contain valid JSON.")
+    
+        assert "status" in data, "Expected 'status' key in error_log.json."
+        assert isinstance(data["status"], int), f"Expected 'status' to be an integer, got {type(data['status'])}."
+        assert "message" in data, "Expected 'message' key in error_log.json."
+>       assert isinstance(data["message"], str), f"Expected 'message' to be a string, got {type(data['message'])}."
+E       AssertionError: Expected 'message' to be a string, got <class 'dict'>.
+E       assert False
+E        +  where False = isinstance({'code': '14004', 'message': 'Project Id must be a uuid.', 'meta': {'projectId': 'dummy-project'}, 'status': 400}, str)
+
+tests/test_final_state.py:39: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_script_execution_success
+PASSED tests/test_final_state.py::test_error_log_exists
+FAILED tests/test_final_state.py::test_error_log_contents - AssertionError: E...
+========================= 1 failed, 2 passed in 0.68s ==========================

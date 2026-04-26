@@ -1,0 +1,56 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 4,
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1777218995.7688162,
+            "stop": 1777218996.7678814
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_execute_js_exists",
+                "status": "passed",
+                "duration": 0.0007054599700495601,
+                "start": 1777218995.7826278,
+                "stop": 1777218995.7836268,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_package_json_has_jsonwebtoken",
+                "status": "passed",
+                "duration": 0.000631017959676683,
+                "start": 1777218995.7838743,
+                "stop": 1777218995.784696,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_running_script_produces_output",
+                "status": "passed",
+                "duration": 0.9814601768739522,
+                "start": 1777218995.784888,
+                "stop": 1777218996.766621,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_json_structure",
+                "status": "passed",
+                "duration": 0.0006145179504528642,
+                "start": 1777218996.766887,
+                "stop": 1777218996.767692,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

@@ -1,0 +1,86 @@
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo proxy_api_rate_limit__5AL5hk7 > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Paragon Proxy API Rate Limit Retry
+
+## Background
+Paragon's Proxy API allows making direct, authenticated requests to 3rd-party endpoints. However, these 3rd-party APIs (like Salesforce) may enforce rate limits (HTTP 429). We need a robust request function that handles these rate limits gracefully.
+
+## Requirements
+- Create a Node.js module `request.js` that exports a function `makeProxyRequest(projectId, userToken, integration, targetUrl)`.
+- The function must make a request to the Paragon Proxy API endpoint: `https://proxy.useparagon.com/projects/{projectId}/sdk/proxy/{integration}`.
+- It must include the `Authorization: Bearer {userToken}` header and the `X-Paragon-Proxy-Url: {targetUrl}` header.
+- If the response status is 429 (Too Many Requests), the function must retry the request up to 3 times.
+- It should implement exponential backoff for the retries (e.g., 1s, 2s, 4s) or respect the `Retry-After` header if present.
+- If it succeeds, it should return the JSON response.
+- If it fails after 3 retries, it should throw an error.
+- Use the built-in `fetch` API (Node >= 18).
+
+## Implementation Guide
+1. Initialize a Node.js project in `/home/user/workspace`.
+2. Implement the `makeProxyRequest` function in `request.js`.
+
+## Constraints
+- Project path: `/home/user/workspace`
+- The script must be named `request.js` and export the function using CommonJS (`module.exports = makeProxyRequest`).
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

@@ -1,0 +1,56 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 4,
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1777219424.4022863,
+            "stop": 1777219424.4153893
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_package_json_has_paragon_connect",
+                "status": "passed",
+                "duration": 0.0005389770958572626,
+                "start": 1777219424.4113903,
+                "stop": 1777219424.4121292,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_source_code_contains_authenticate",
+                "status": "passed",
+                "duration": 0.0006767709273844957,
+                "start": 1777219424.4123213,
+                "stop": 1777219424.4131336,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_source_code_contains_get_user",
+                "status": "passed",
+                "duration": 0.0005771759897470474,
+                "start": 1777219424.4133463,
+                "stop": 1777219424.414047,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_source_code_contains_div_id",
+                "status": "passed",
+                "duration": 0.0007997959619387984,
+                "start": 1777219424.4142265,
+                "stop": 1777219424.4151695,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

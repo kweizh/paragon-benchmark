@@ -1,0 +1,59 @@
+downloading uv 0.9.7 x86_64-unknown-linux-gnu
+no checksums to verify
+installing to /root/.local/bin
+  uv
+  uvx
+everything's installed!
+
+To add $HOME/.local/bin to your PATH, either restart your shell or run:
+
+    source $HOME/.local/bin/env (sh, bash, zsh)
+    source $HOME/.local/bin/env.fish (fish)
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 139ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 4 items
+
+tests/test_final_state.py ...F                                           [100%]
+
+=================================== FAILURES ===================================
+___________________________ test_slack_message_sent ____________________________
+
+    def test_slack_message_sent():
+        trail_id = get_trail_id()
+        channel_name = f"{CHANNEL_BASENAME}-{trail_id}"
+        slack_token = os.environ.get("SLACK_TOKEN")
+        assert slack_token, "SLACK_TOKEN environment variable is not set."
+    
+        # 1. Get channel ID
+        result = subprocess.run([
+            "curl", "-sS", "-H", f"Authorization: Bearer {slack_token}",
+            "https://slack.com/api/conversations.list?limit=200&types=public_channel,private_channel"
+        ], capture_output=True, text=True)
+        assert result.returncode == 0, f"curl conversations.list failed: {result.stderr}"
+        data = json.loads(result.stdout)
+        assert data.get("ok"), f"Slack API error: {data}"
+    
+        channels = data.get("channels", [])
+        channel_id = None
+        for c in channels:
+            if c["name"] == channel_name:
+                channel_id = c["id"]
+                break
+    
+>       assert channel_id is not None, f"Expected channel '{channel_name}' not found in Slack workspace."
+E       AssertionError: Expected channel 'test-channel-actionkit_dynamic_params__HGPAsrQ' not found in Slack workspace.
+E       assert None is not None
+
+tests/test_final_state.py:49: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_script_exists
+PASSED tests/test_final_state.py::test_script_reads_trail_id
+PASSED tests/test_final_state.py::test_log_file_exists
+FAILED tests/test_final_state.py::test_slack_message_sent - AssertionError: E...
+========================= 1 failed, 3 passed in 0.66s ==========================

@@ -1,0 +1,94 @@
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo headless_connection_trigger__R4zLiJV > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Headless Connection Trigger
+
+## Background
+Paragon provides a Connect Portal that allows users to authorize third-party integrations. You need to implement a custom UI button that triggers the Paragon headless connection flow for Slack and handles the promise returned by the connection attempt.
+
+## Requirements
+- Create a simple web page with a button labeled "Connect Slack" (id: `connect-slack`).
+- When clicked, the button must call `paragon.connect('slack')` using the `@useparagon/connect` SDK.
+- The page must include the `@useparagon/connect` SDK.
+- The frontend must authenticate with Paragon before allowing the connection. To do this, it should fetch a user token from your backend.
+- The backend must generate a Paragon User Token (JWT) signed with the `PARAGON_SIGNING_KEY` environment variable. The JWT must include a `sub` claim (e.g., "test-user-1") and `iat`.
+- The backend must also expose the `PARAGON_PROJECT_ID` to the frontend.
+- On successful connection, update a DOM element with id `status` to show "Connected". On failure, update it to "Failed".
+
+## Implementation Guide
+1. Initialize a Node.js project in `/home/user/app`.
+2. Install `express`, `jsonwebtoken`, and `@useparagon/connect`.
+3. Create `server.js` that serves static files from a `public` directory and provides a `/api/token` endpoint. The token endpoint should generate a JWT using `process.env.PARAGON_SIGNING_KEY` and return it along with `process.env.PARAGON_PROJECT_ID`.
+4. Create `public/index.html` with the "Connect Slack" button (`<button id="connect-slack">Connect Slack</button>`) and a status div (`<div id="status">Pending</div>`).
+5. In `public/index.html`, load the SDK (e.g., via a bundler like Webpack/Vite, or a script tag if supported, but typically you build it or use a module bundler. For simplicity, you can use a build step with `esbuild` or `webpack`, or serve it from `node_modules`).
+6. Fetch `/api/token`, call `paragon.authenticate(projectId, token)`, and add a click listener to the button that calls `paragon.connect('slack')`. Handle the promise to update the `#status` text.
+
+## Constraints
+- Project path: `/home/user/app`
+- Start command: `npm run build && npm start` (configure your `package.json` to build the frontend if you use a bundler, then start the express server).
+- Port: 3000
+- The backend must read `PARAGON_PROJECT_ID` and `PARAGON_SIGNING_KEY` from the environment.
+
+## Integrations
+- Slack
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

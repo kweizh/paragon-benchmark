@@ -1,0 +1,41 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 1,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1777219246.18698,
+            "stop": 1777219246.2556884
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_fetch_all_script_exists",
+                "status": "passed",
+                "duration": 0.0005465800641104579,
+                "start": 1777219246.1975014,
+                "stop": 1777219246.198257,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_fetch_all_logic",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.04139222309459001,
+                "start": 1777219246.198449,
+                "stop": 1777219246.2554727,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_fetch_all_logic():\n        test_script_content = \"\"\"\n    const assert = require('assert');\n    const fetchAll = require('./fetch_all.js');\n    \n    let fetchCallCount = 0;\n    let requestedUrls = [];\n    let requestedHeaders = [];\n    \n    global.fetch = async (url, options) => {\n        fetchCallCount++;\n        requestedUrls.push(url);\n    \n        // Normalize headers to lowercase keys\n        let headers = {};\n        if (options && options.headers) {\n            if (options.headers.entries) {\n                for (let [key, value] of options.headers.entries()) {\n                    headers[key.toLowerCase()] = value;\n                }\n            } else {\n                for (let key in options.headers) {\n                    headers[key.toLowerCase()] = options.headers[key];\n                }\n            }\n        }\n        requestedHeaders.push(headers);\n    \n        if (fetchCallCount === 1) {\n            return {\n                json: async () => ({\n                    items: [{ id: 1 }, { id: 2 }],\n                    next_cursor: 'cursor_2'\n                })\n            };\n        } else if (fetchCallCount === 2) {\n            return {\n                json: async () => ({\n                    items: [{ id: 3 }, { id: 4 }],\n                    next_cursor: 'cursor_3'\n                })\n            };\n        } else {\n            return {\n                json: async () => ({\n                    items: [{ id: 5 }],\n                    next_cursor: null\n                })\n            };\n        }\n    };\n    \n    (async () => {\n        try {\n            const results = await fetchAll('proj_123', 'token_abc', 'slack', '/api/users', 4);\n    \n            assert.strictEqual(results.length, 4, 'Should return exactly 4 items based on limit');\n            assert.strictEqual(fetchCallCount, 2, 'Should only make 2 fetch calls to reach limit 4');\n    \n            assert.strictEqual(requestedUrls[0], 'https://proxy.useparagon.com/projects/proj_123/sdk/proxy/slack');\n            assert.strictEqual(requestedUrls[1], 'https://proxy.useparagon.com/projects/proj_123/sdk/proxy/slack');\n    \n            assert.strictEqual(requestedHeaders[0]['authorization'], 'Bearer token_abc');\n            assert.strictEqual(requestedHeaders[0]['x-paragon-proxy-url'], '/api/users');\n    \n            assert.strictEqual(requestedHeaders[1]['authorization'], 'Bearer token_abc');\n            assert.strictEqual(requestedHeaders[1]['x-paragon-proxy-url'], '/api/users?cursor=cursor_2');\n    \n            console.log('All tests passed');\n        } catch (err) {\n            console.error(err);\n            process.exit(1);\n        }\n    })();\n    \"\"\"\n        with open(TEST_FILE, \"w\") as f:\n            f.write(test_script_content)\n    \n        result = subprocess.run(\n            [\"node\", \"test_fetch.js\"],\n            capture_output=True, text=True, cwd=PROJECT_DIR\n        )\n    \n>       assert result.returncode == 0, f\"Node.js test script failed: {result.stderr}\\\\nOutput: {result.stdout}\"\nE       AssertionError: Node.js test script failed: TypeError: response.text is not a function\nE             at fetchAll (/home/user/project/fetch_all.js:32:40)\nE             at async /home/user/project/test_fetch.js:54:25\nE         \\nOutput: \nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['node', 'test_fetch.js'], returncode=1, stdout='', stderr='TypeError: response.text is not a function\\n    at fetchAll (/home/user/project/fetch_all.js:32:40)\\n    at async /home/user/project/test_fetch.js:54:25\\n').returncode\n\ntests/test_final_state.py:95: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

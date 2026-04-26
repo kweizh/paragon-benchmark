@@ -1,0 +1,84 @@
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo proxy_api_oauth_error__TNW6jSM > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Handle Paragon Proxy API OAuth Errors
+
+## Background
+When using the Paragon Proxy API to make requests to 3rd-party integrations, the underlying OAuth token might expire and fail to refresh. In such cases, the Proxy API returns a 401 status. Your application needs to handle this gracefully by logging a specific message.
+
+## Requirements
+You are provided with a Node.js script `/home/user/app/fetch_data.js` that makes a GET request to the Paragon Proxy API (`https://proxy.useparagon.com/projects/TEST_PROJECT/sdk/proxy/slack/users.identity`) using an invalid token, which will simulate an OAuth refresh failure (401 Unauthorized).
+Currently, it does not handle 401 errors specifically.
+Modify `/home/user/app/fetch_data.js` so that if the Proxy API returns a 401 status, the script writes the exact string `User needs to reconnect` to `/home/user/app/error.log`.
+
+## Implementation Guide
+1. Open `/home/user/app/fetch_data.js`.
+2. Check the response status from the `fetch` call.
+3. If `response.status === 401`, write `User needs to reconnect` to `error.log` using the `fs` module (e.g., `fs.writeFileSync('error.log', 'User needs to reconnect')`).
+4. Ensure the script does not throw an unhandled exception when a 401 occurs.
+
+## Constraints
+- Project path: /home/user/app
+- Log file: /home/user/app/error.log
+- Do not change the existing URL or fetch options, just add the error handling logic.
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
