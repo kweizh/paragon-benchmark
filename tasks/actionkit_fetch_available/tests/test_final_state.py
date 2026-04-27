@@ -13,9 +13,9 @@ def test_actions_file_is_valid_json():
     """Priority 3: Check if the actions.json file contains valid JSON."""
     with open(ACTIONS_FILE, "r") as f:
         content = f.read()
-    
+
     assert len(content.strip()) > 0, f"File {ACTIONS_FILE} is empty."
-    
+
     try:
         json.loads(content)
     except json.JSONDecodeError as e:

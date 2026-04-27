@@ -9,9 +9,8 @@ LOG_FILE = "/home/user/project/error_log.json"
 def test_script_execution_success():
     """Priority 1: Use subprocess to run the script and verify it exits cleanly without crashing."""
     env = os.environ.copy()
-    env["PROJECT_ID"] = "dummy-project"
-    env["PARAGON_USER_TOKEN"] = "dummy-token"
-    
+    env["PROJECT_ID"] = env["PARAGON_PROJECT_ID"]
+
     result = subprocess.run(
         ["node", "call_action.js"],
         cwd=PROJECT_DIR,
@@ -32,7 +31,7 @@ def test_error_log_contents():
             data = json.load(f)
         except json.JSONDecodeError:
             pytest.fail(f"File {LOG_FILE} does not contain valid JSON.")
-            
+
     assert "status" in data, "Expected 'status' key in error_log.json."
     assert isinstance(data["status"], int), f"Expected 'status' to be an integer, got {type(data['status'])}."
     assert "message" in data, "Expected 'message' key in error_log.json."

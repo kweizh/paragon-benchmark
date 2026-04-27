@@ -24,16 +24,14 @@ def test_running_script_produces_output():
     """Priority 1: Use node CLI to run the function and verify it works without throwing errors."""
     if os.path.exists(OUTPUT_JSON):
         os.remove(OUTPUT_JSON)
-        
+
     env = os.environ.copy()
-    env["PARAGON_PROJECT_ID"] = "test-project-123"
-    env["PARAGON_SIGNING_KEY"] = "test-signing-key-456"
 
     result = subprocess.run(
         ["node", "execute.js"],
         capture_output=True, text=True, cwd=PROJECT_DIR, env=env
     )
-    
+
     assert result.returncode == 0, f"'node execute.js' failed: {result.stderr}"
     assert os.path.isfile(OUTPUT_JSON), f"Expected {OUTPUT_JSON} to be created after running the script."
 
@@ -45,5 +43,5 @@ def test_output_json_structure():
             content = json.load(f)
         except json.JSONDecodeError:
             pytest.fail("output.json does not contain valid JSON.")
-            
+
     assert "status" in content, "Expected 'status' key in output.json."

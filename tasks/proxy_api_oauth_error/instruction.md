@@ -4,7 +4,7 @@
 When using the Paragon Proxy API to make requests to 3rd-party integrations, the underlying OAuth token might expire and fail to refresh. In such cases, the Proxy API returns a 401 status. Your application needs to handle this gracefully by logging a specific message.
 
 ## Requirements
-You are provided with a Node.js script `/home/user/app/fetch_data.js` that makes a GET request to the Paragon Proxy API (`https://proxy.useparagon.com/projects/TEST_PROJECT/sdk/proxy/slack/users.identity`) using an invalid token, which will simulate an OAuth refresh failure (401 Unauthorized).
+You are provided with a Node.js script `/home/user/app/fetch_data.js` that makes a GET request to the Paragon Proxy API (`https://proxy.useparagon.com/projects/${PARAGON_PROJECT_ID}/sdk/proxy/slack/users.identity`) using an invalid token, which will simulate an OAuth refresh failure (401 Unauthorized).
 Currently, it does not handle 401 errors specifically.
 Modify `/home/user/app/fetch_data.js` so that if the Proxy API returns a 401 status, the script writes the exact string `User needs to reconnect` to `/home/user/app/error.log`.
 

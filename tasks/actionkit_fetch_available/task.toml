@@ -13,6 +13,8 @@ mcp_servers = []
 [environment.env]
 POCHI_LOG = "debug"
 POCHI_API_KEY = "${POCHI_API_KEY}"
+PARAGON_SIGNING_KEY = "${PARAGON_SIGNING_KEY}"
+PARAGON_PROJECT_ID = "${PARAGON_PROJECT_ID}"
 
 [agent]
 timeout_sec = 600
@@ -23,5 +25,7 @@ timeout_sec = 600
 [verifier.env]
 POCHI_LOG = "debug"
 POCHI_API_KEY = "${POCHI_API_KEY}"
+PARAGON_SIGNING_KEY = "${PARAGON_SIGNING_KEY}"
+PARAGON_PROJECT_ID = "${PARAGON_PROJECT_ID}"
 
 [solution.env]

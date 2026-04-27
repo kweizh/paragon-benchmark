@@ -15,6 +15,7 @@ When using Paragon's ActionKit API, requests might fail due to invalid JSON sche
 - Project path: `/home/user/project`
 - Log file: `/home/user/project/error_log.json`
 - Use Node.js built-in `fetch` (Node 18+).
+- Read `PARAGON_PROJECT_ID`, `PARAGON_SIGNING_KEY` and `PARAGON_USER_TOKEN` from environment variables.
 
 ## Integrations
 - None

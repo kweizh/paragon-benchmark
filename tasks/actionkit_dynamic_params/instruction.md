@@ -5,7 +5,7 @@ Paragon's ActionKit API allows you to execute 3rd-party actions programmatically
 
 ## Requirements
 - Write a Node.js script at `/home/user/project/send_message.js`.
-- The script must read the `trail_id` from `/logs/trail_id`.
+- The script must read the `trail_id` from `/logs/artifacts/trial_id`.
 - The script must use `fetch` to send a `POST` request to `https://actionkit.useparagon.com/projects/${PARAGON_PROJECT_ID}/actions`.
 - The request must include the `Authorization: Bearer ${PARAGON_USER_TOKEN}` header.
 - The JSON body must specify the action `SLACK_SEND_MESSAGE`.
@@ -15,15 +15,15 @@ Paragon's ActionKit API allows you to execute 3rd-party actions programmatically
 - The script should execute the request and print the response status.
 
 ## Implementation Guide
-1. Read the `trail_id` from `/logs/trail_id`.
-2. Read `PARAGON_PROJECT_ID` and `PARAGON_USER_TOKEN` from environment variables.
+1. Read the `trail_id` from `/logs/artifacts/trial_id`.
+2. Read `PARAGON_PROJECT_ID`, `PARAGON_SIGNING_KEY` and `PARAGON_USER_TOKEN` from environment variables.
 3. Construct the fetch request to the ActionKit API.
 4. Execute the script using `node /home/user/project/send_message.js` and save the output to `/home/user/project/output.log`.
 
 ## Constraints
 - Project path: `/home/user/project`
 - Log file: `/home/user/project/output.log`
-- Do not hardcode the `trail_id`, `PARAGON_PROJECT_ID`, or `PARAGON_USER_TOKEN`.
+- Do not hardcode the `trail_id`, `PARAGON_PROJECT_ID`, `PARAGON_SIGNING_KEY`, or `PARAGON_USER_TOKEN`.
 
 ## Integrations
 - Slack
