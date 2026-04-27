@@ -1,0 +1,56 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 4,
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1777285787.1020064,
+            "stop": 1777285787.114393
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_script_exists",
+                "status": "passed",
+                "duration": 0.0005070859333500266,
+                "start": 1777285787.111206,
+                "stop": 1777285787.1119153,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_exports_function",
+                "status": "passed",
+                "duration": 0.0005245379870757461,
+                "start": 1777285787.112112,
+                "stop": 1777285787.1127741,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_uses_correct_url",
+                "status": "passed",
+                "duration": 0.000434521003626287,
+                "start": 1777285787.1129754,
+                "stop": 1777285787.1135523,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_includes_authorization_header",
+                "status": "passed",
+                "duration": 0.00041973101906478405,
+                "start": 1777285787.1137156,
+                "stop": 1777285787.1142507,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

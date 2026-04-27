@@ -1,0 +1,16 @@
+[37m2026-04-27 10:35:23.602[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37mnative:1[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	pochi v0.6.8
+[37m2026-04-27 10:35:24.066[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:519633[39m[0m[0m[1m[37m	loadAgents[39m[22m[0m[0m	Loaded 6 custom agents (6 valid, 0 invalid)
+[37m2026-04-27 10:35:24.071[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:519634[39m[0m[0m[1m[37m	loadSkills[39m[22m[0m[0m	Loaded 2 skills (2 valid, 0 invalid)
+[37m2026-04-27 10:35:24.124[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:444677[39m[0m[0m[1m[37m	PochiVendor[39m[22m[0m[0m	JWT is expiring or missing, fetching a new one
+[37m2026-04-27 10:35:27.458[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:416517[39m[0m[0m[1m[37m	MCPHub[39m[22m[0m[0m	MCP servers configuration changed via signal:
+[37m2026-04-27 10:35:27.459[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:416629[39m[0m[0m[1m[37m	MCPHub[39m[22m[0m[0m	Build MCPHub Status
+[37m2026-04-27 10:35:27.662[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37mnative:7[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	Starting task runner...
+[37m2026-04-27 10:35:27.757[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:507614[39m[0m[0m[1m[37m	generateTaskTitle[39m[22m[0m[0m	Generating task title, old: null, new: # Preserving your work
+[37m2026-04-27 10:35:40.468[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="/home/user/app/src/App.js" resolvedPath="/home/user/app/src/App.js" isVirtual=false cacheExists=true shouldCache=true startLine=undefined endLine=undefined
+[37m2026-04-27 10:35:40.469[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState=undefined
+[37m2026-04-27 10:35:40.470[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:518725[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/home/user/app/src/App.js" mtime=1776916559000 contentLen=255
+[37m2026-04-27 10:35:47.575[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:507614[39m[0m[0m[1m[37m	generateTaskTitle[39m[22m[0m[0m	Generating task title, old: # Preserving your work, new: Add a Paragon SDK event listener for integration installs
+[37m2026-04-27 10:35:59.073[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37mnative:7[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	Task runner finished successfully.
+[37m2026-04-27 10:35:59.074[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37mnative:7[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	Shutting down...
+[37m2026-04-27 10:35:59.089[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37mnative:7[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	Shutdown completed. Process will exit.
+[37m2026-04-27 10:35:59.090[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	Process exiting with code 0

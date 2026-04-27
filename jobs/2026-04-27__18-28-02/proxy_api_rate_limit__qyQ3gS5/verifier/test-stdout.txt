@@ -1,0 +1,142 @@
+downloading uv 0.9.7 x86_64-unknown-linux-gnu
+no checksums to verify
+installing to /root/.local/bin
+  uv
+  uvx
+everything's installed!
+
+To add $HOME/.local/bin to your PATH, either restart your shell or run:
+
+    source $HOME/.local/bin/env (sh, bash, zsh)
+    source $HOME/.local/bin/env.fish (fish)
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 602ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 3 items
+
+tests/test_final_state.py .FF                                            [100%]
+
+=================================== FAILURES ===================================
+___________________________ test_retry_logic_success ___________________________
+
+    def test_retry_logic_success():
+        # Create a test script in the workspace to test the module
+        test_script_path = os.path.join(WORKSPACE, "test_retry_success.js")
+        test_script_content = """
+    const makeProxyRequest = require('./request.js');
+    
+    let fetchCallCount = 0;
+    global.fetch = async (url, options) => {
+        fetchCallCount++;
+    
+        // Check URL
+        if (url !== 'https://proxy.useparagon.com/projects/test-proj/sdk/proxy/salesforce') {
+            throw new Error('Incorrect URL: ' + url);
+        }
+    
+        // Check headers
+        if (options.headers['Authorization'] !== 'Bearer test-token') {
+            throw new Error('Incorrect Authorization header');
+        }
+        if (options.headers['X-Paragon-Proxy-Url'] !== '/services/data/v53.0/sobjects/Account') {
+            throw new Error('Incorrect X-Paragon-Proxy-Url header');
+        }
+    
+        if (fetchCallCount < 4) {
+            return {
+                status: 429,
+                json: async () => ({ error: 'Too Many Requests' })
+            };
+        }
+    
+        return {
+            status: 200,
+            json: async () => ({ success: true, data: 'test-data' })
+        };
+    };
+    
+    async function runTest() {
+        try {
+            const result = await makeProxyRequest('test-proj', 'test-token', 'salesforce', '/services/data/v53.0/sobjects/Account');
+            if (fetchCallCount !== 4) {
+                console.error('Expected fetch to be called 4 times, but was called ' + fetchCallCount + ' times.');
+                process.exit(1);
+            }
+            if (!result || result.data !== 'test-data') {
+                console.error('Unexpected result: ' + JSON.stringify(result));
+                process.exit(1);
+            }
+            console.log('Success');
+            process.exit(0);
+        } catch (err) {
+            console.error('Test failed with error: ' + err.message);
+            process.exit(1);
+        }
+    }
+    runTest();
+    """
+        with open(test_script_path, "w") as f:
+            f.write(test_script_content)
+    
+        result = subprocess.run(["node", "test_retry_success.js"], cwd=WORKSPACE, capture_output=True, text=True)
+>       assert result.returncode == 0, f"Retry logic test failed: {result.stderr} {result.stdout}"
+E       AssertionError: Retry logic test failed: Test failed with error: Cannot read properties of undefined (reading 'get')
+E          
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['node', 'test_retry_success.js'], returncode=1, stdout='', stderr="Test failed with error: Cannot read properties of undefined (reading 'get')\n").returncode
+
+tests/test_final_state.py:71: AssertionError
+___________________________ test_retry_logic_failure ___________________________
+
+    def test_retry_logic_failure():
+        # Create a test script in the workspace to test the module
+        test_script_path = os.path.join(WORKSPACE, "test_retry_failure.js")
+        test_script_content = """
+    const makeProxyRequest = require('./request.js');
+    
+    let fetchCallCount = 0;
+    global.fetch = async (url, options) => {
+        fetchCallCount++;
+        return {
+            status: 429,
+            json: async () => ({ error: 'Too Many Requests' })
+        };
+    };
+    
+    async function runTest() {
+        try {
+            await makeProxyRequest('test-proj', 'test-token', 'salesforce', '/services/data/v53.0/sobjects/Account');
+            console.error('Expected function to throw an error after 3 retries (4 total calls)');
+            process.exit(1);
+        } catch (err) {
+            if (fetchCallCount !== 4) {
+                console.error('Expected fetch to be called 4 times, but was called ' + fetchCallCount + ' times.');
+                process.exit(1);
+            }
+            console.log('Success');
+            process.exit(0);
+        }
+    }
+    runTest();
+    """
+        with open(test_script_path, "w") as f:
+            f.write(test_script_content)
+    
+        result = subprocess.run(["node", "test_retry_failure.js"], cwd=WORKSPACE, capture_output=True, text=True)
+>       assert result.returncode == 0, f"Retry failure test failed: {result.stderr} {result.stdout}"
+E       AssertionError: Retry failure test failed: Expected fetch to be called 4 times, but was called 1 times.
+E          
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['node', 'test_retry_failure.js'], returncode=1, stdout='', stderr='Expected fetch to be called 4 times, but was called 1 times.\n').returncode
+
+tests/test_final_state.py:109: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_request_js_exists
+FAILED tests/test_final_state.py::test_retry_logic_success - AssertionError: ...
+FAILED tests/test_final_state.py::test_retry_logic_failure - AssertionError: ...
+========================= 2 failed, 1 passed in 0.11s ==========================

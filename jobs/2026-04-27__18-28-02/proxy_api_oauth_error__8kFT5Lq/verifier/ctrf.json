@@ -1,0 +1,32 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 1,
+            "passed": 0,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1777286025.7168036,
+            "stop": 1777286026.2970738
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_script_handles_401_and_writes_log",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.555900335079059,
+                "start": 1777286025.7263613,
+                "stop": 1777286026.2968965,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_script_handles_401_and_writes_log():\n        \"\"\"Run the script and verify it creates error.log with the correct message.\"\"\"\n        result = subprocess.run(\n            [\"node\", \"fetch_data.js\"],\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True\n        )\n    \n        assert result.returncode == 0, f\"Script failed with error: {result.stderr}\"\n    \n        log_file = os.path.join(PROJECT_DIR, \"error.log\")\n>       assert os.path.isfile(log_file), f\"Expected {log_file} to be created.\"\nE       AssertionError: Expected /home/user/app/error.log to be created.\nE       assert False\nE        +  where False = <function isfile at 0x73018eb6c220>('/home/user/app/error.log')\nE        +    where <function isfile at 0x73018eb6c220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:19: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

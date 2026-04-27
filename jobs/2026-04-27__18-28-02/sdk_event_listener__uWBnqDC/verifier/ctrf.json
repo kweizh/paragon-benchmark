@@ -1,0 +1,38 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 2,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1777286167.4173245,
+            "stop": 1777286167.4280438
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_paragon_subscribe_called",
+                "status": "passed",
+                "duration": 0.0005057010566815734,
+                "start": 1777286167.4264174,
+                "stop": 1777286167.4271274,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_console_log_integration_id",
+                "status": "passed",
+                "duration": 0.0004225259181112051,
+                "start": 1777286167.4273512,
+                "stop": 1777286167.427899,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

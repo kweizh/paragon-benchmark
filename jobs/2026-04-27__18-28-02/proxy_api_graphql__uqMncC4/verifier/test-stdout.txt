@@ -1,0 +1,46 @@
+downloading uv 0.9.7 x86_64-unknown-linux-gnu
+no checksums to verify
+installing to /root/.local/bin
+  uv
+  uvx
+everything's installed!
+
+To add $HOME/.local/bin to your PATH, either restart your shell or run:
+
+    source $HOME/.local/bin/env (sh, bash, zsh)
+    source $HOME/.local/bin/env.fish (fish)
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 31ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 2 items
+
+tests/test_final_state.py .F                                             [100%]
+
+=================================== FAILURES ===================================
+__________________________ test_output_json_validity ___________________________
+
+    def test_output_json_validity():
+        """Verify that the output is a valid JSON object containing the expected data."""
+        assert os.path.isfile(LOG_FILE), f"Log file {LOG_FILE} not found."
+        with open(LOG_FILE, "r") as f:
+            content = f.read()
+    
+        try:
+            output_data = json.loads(content)
+        except json.JSONDecodeError:
+            pytest.fail(f"Output is not valid JSON: {content}")
+    
+>       assert "data" in output_data, "Expected 'data' in GraphQL response"
+E       AssertionError: Expected 'data' in GraphQL response
+E       assert 'data' in {'code': '18002', 'message': 'Signing key not found.', 'meta': {'projectId': 'REDACTED'}, 'status': 404}
+
+tests/test_final_state.py:36: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_script_execution
+FAILED tests/test_final_state.py::test_output_json_validity - AssertionError:...
+========================= 1 failed, 1 passed in 1.29s ==========================

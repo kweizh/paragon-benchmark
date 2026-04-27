@@ -1,0 +1,56 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 0,
+            "failed": 3,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1777286175.2199838,
+            "stop": 1777286176.2514515
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_script_execution",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 1.0029790229164064,
+                "start": 1777286175.2296746,
+                "stop": 1777286176.246686,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_script_execution():\n        \"\"\"Priority 1: Run the script to verify it handles the token and succeeds.\"\"\"\n        result = subprocess.run(\n            [\"node\", \"fetch_actions.js\"],\n            capture_output=True, text=True, cwd=PROJECT_DIR\n        )\n>       assert result.returncode == 0, \\\n            f\"'node fetch_actions.js' failed with exit code {result.returncode}. Stderr: {result.stderr}\"\nE       AssertionError: 'node fetch_actions.js' failed with exit code 1. Stderr: Failed to fetch actions: 404\nE         \nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['node', 'fetch_actions.js'], returncode=1, stdout='', stderr='Failed to fetch actions: 404\\n').returncode\n\ntests/test_final_state.py:15: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_actions_json_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0006303649861365557,
+                "start": 1777286176.2469015,
+                "stop": 1777286176.2492654,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_actions_json_exists():\n        \"\"\"Priority 3: Check if actions.json was created.\"\"\"\n>       assert os.path.isfile(ACTIONS_FILE), \\\n            f\"Expected {ACTIONS_FILE} to be created, but it was not found.\"\nE       AssertionError: Expected /home/user/actionkit-project/actions.json to be created, but it was not found.\nE       assert False\nE        +  where False = <function isfile at 0x7589a4484220>('/home/user/actionkit-project/actions.json')\nE        +    where <function isfile at 0x7589a4484220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:20: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_actions_json_content",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0004582400433719158,
+                "start": 1777286176.249443,
+                "stop": 1777286176.2512884,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_actions_json_content():\n        \"\"\"Priority 3: Check if actions.json contains valid JSON.\"\"\"\n>       with open(ACTIONS_FILE) as f:\n             ^^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/actionkit-project/actions.json'\n\ntests/test_final_state.py:25: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            }
+        ]
+    }
+}

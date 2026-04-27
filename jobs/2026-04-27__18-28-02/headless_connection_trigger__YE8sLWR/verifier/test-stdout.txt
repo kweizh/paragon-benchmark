@@ -1,0 +1,84 @@
+downloading uv 0.9.7 x86_64-unknown-linux-gnu
+no checksums to verify
+installing to /root/.local/bin
+  uv
+  uvx
+everything's installed!
+
+To add $HOME/.local/bin to your PATH, either restart your shell or run:
+
+    source $HOME/.local/bin/env (sh, bash, zsh)
+    source $HOME/.local/bin/env.fish (fish)
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 32ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 1 item
+
+tests/test_final_state.py F                                              [100%]
+
+=================================== FAILURES ===================================
+_______________________ test_headless_connection_trigger _______________________
+
+start_app = None
+
+    def test_headless_connection_trigger(start_app):
+        reason = "The application should have a 'Connect Slack' button that triggers the Paragon connection flow."
+        truth = "Navigate to http://localhost:3000. Verify that the 'Connect Slack' button (id: `connect-slack`) is present on the page. Verify that the status div (id: `status`) is present. Click the 'Connect Slack' button. Verify that a popup window or iframe pointing to Paragon's authentication portal is opened, demonstrating that `paragon.connect('slack')` was successfully triggered."
+    
+        verifier = PochiVerifier()
+>       result = verifier.verify(
+            reason=reason,
+            truth=truth,
+            use_browser_agent=True,
+            trajectory_dir="/logs/verifier/pochi/test_headless_connection_trigger"
+        )
+
+tests/test_final_state.py:58: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+root/.cache/uv/archive-v0/qd4A7uviGsD70cvc83kGM/lib/python3.12/site-packages/pochi_verifier/verifier.py:195: in verify
+    return self._parse_result(proc.stdout, proc.stderr)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <pochi_verifier.verifier.PochiVerifier object at 0x72b90393c050>
+stdout = '- Initializing MCP connections...\nYou\n## Reason for this test The application should have a \'Connect Slack\' butto...ried to call unavailable tool \'askFollowupQuestion\'. Available tools: attemptCompletion, useSkill, todoWrite."\n  \n'
+stderr = '\x1b[37m2026-04-27 10:34:34.418\x1b[39m\x1b[0m\x1b[0m\t\x1b[32m\x1b[1mDEBUG\x1b[22m\x1b[39m\x1b[0m\x1b[0m\t\x1b[37m$b...[0m\t\x1b[37m\x1b[39m\x1b[0m\x1b[0m\x1b[1m\x1b[37m\tPochi\x1b[39m\x1b[22m\x1b[0m\x1b[0m\tProcess exiting with code 0\n'
+
+    def _parse_result(self, stdout: str, stderr: str) -> VerificationResult:
+        """Parses the stdout from pochi to extract the verification result."""
+        # Find the JSON object that follows the `Task Completed` marker (with possible whitespace)
+        match = re.search(r"Task Completed.*?(\{.*)", stdout, re.DOTALL)
+        if not match:
+>           raise PochiOutputError("Cannot extract the JSON from the output message.")
+E           pochi_verifier.verifier.PochiOutputError: Cannot extract the JSON from the output message.
+
+root/.cache/uv/archive-v0/qd4A7uviGsD70cvc83kGM/lib/python3.12/site-packages/pochi_verifier/verifier.py:211: PochiOutputError
+---------------------------- Captured stdout setup -----------------------------
+
+up to date, audited 100 packages in 817ms
+
+16 packages are looking for funding
+  run `npm fund` for details
+
+1 moderate severity vulnerability
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+
+> paragon-connect-app@1.0.0 build
+> esbuild src/client.js --bundle --outfile=public/bundle.js
+
+---------------------------- Captured stderr setup -----------------------------
+
+  public/bundle.js  262.8kb
+
+⚡ Done in 61ms
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_headless_connection_trigger - pochi_ve...
+======================== 1 failed in 111.64s (0:01:51) =========================
