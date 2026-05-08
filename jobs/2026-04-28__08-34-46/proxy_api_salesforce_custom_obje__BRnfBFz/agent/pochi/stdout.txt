@@ -1,0 +1,32 @@
+- Initializing MCP connections...
+You
+# Preserving your work Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable. --- # Fetch Salesforce Custom Object via Proxy API ## Background You have an active Paragon project and need to interact with a Salesforce custom object that isn't available in the standard Paragon action list. You can use the Paragon Proxy API to make a direct, authenticated request to the Salesforce REST API. ## Requirements - Create a Node.js script at `/home/user/project/fetch_custom_object.js` that uses the Paragon Proxy API to fetch a custom object from Salesforce. - The script should read the `PARAGON_PROJECT_ID` and `PARAGON_USER_TOKEN` environment variables for authentication. - The script should make a GET request to the Salesforce API to fetch a custom object named `Paragon_Test_Object__c`. - The script should print the JSON response from Salesforce to the console. ## Constraints - Project path: `/home/user/project` - The script must be executable via `node /home/user/project/fetch_custom_object.js`. - Use the standard `fetch` API or any standard HTTP client. - Do NOT provide an implementation guide in the instruction. ## Integrations - Salesforce   
+
+Pochi
+💭 Thinking for 608 characters   
+📋 Updating todo list (3 items) ✔ 
+💫 Executing mkdir -p /home/user/project /logs/artifacts/code/ ✔ 
+💭 Thinking for 680 characters   
+📋 Updating todo list (3 items) ✔ 
+💭 Thinking for 979 characters   
+✏️  Writing /home/user/project/fetch_custom_object.js ✔ 
+💭 Thinking for 184 characters   
+💫 Executing cp /home/user/project/fetch_custom_object.js /logs/artifacts/code/fetch_custom_object.js ✔ 
+📋 Updating todo list (3 items) ✔ 
+💭 Thinking for 143 characters   
+🎉 Task Completed
+I have created the Node.js script to fetch the Salesforce custom object `Paragon_Test_Object__c` using the Paragon Proxy API.
+
+### Changes:
+- Created `/home/user/project/fetch_custom_object.js` which:
+    - Reads `PARAGON_PROJECT_ID` and `PARAGON_USER_TOKEN` from environment variables.
+    - Makes an authenticated GET request to the Salesforce REST API via Paragon's Proxy endpoint.
+    - Prints the JSON response to the console.
+- Saved a copy of the script to `/logs/artifacts/code/fetch_custom_object.js`.
+
+### How to run:
+Ensure you have the environment variables set and run:
+```bash
+PARAGON_PROJECT_ID=your_project_id PARAGON_USER_TOKEN=your_user_token node /home/user/project/fetch_custom_object.js
+```   
+  

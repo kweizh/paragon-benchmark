@@ -1,0 +1,48 @@
+downloading uv 0.9.7 x86_64-unknown-linux-gnu
+no checksums to verify
+installing to /root/.local/bin
+  uv
+  uvx
+everything's installed!
+
+To add $HOME/.local/bin to your PATH, either restart your shell or run:
+
+    source $HOME/.local/bin/env (sh, bash, zsh)
+    source $HOME/.local/bin/env.fish (fish)
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 16ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 2 items
+
+tests/test_final_state.py FF                                             [100%]
+
+=================================== FAILURES ===================================
+___________________________ test_actions_file_exists ___________________________
+
+    def test_actions_file_exists():
+        """Priority 3: Check if the actions.json file was created."""
+>       assert os.path.isfile(ACTIONS_FILE), f"Expected file {ACTIONS_FILE} does not exist."
+E       AssertionError: Expected file /home/user/actions.json does not exist.
+E       assert False
+E        +  where False = <function isfile at 0x7e76f4e1c220>('/home/user/actions.json')
+E        +    where <function isfile at 0x7e76f4e1c220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:10: AssertionError
+_______________________ test_actions_file_is_valid_json ________________________
+
+    def test_actions_file_is_valid_json():
+        """Priority 3: Check if the actions.json file contains valid JSON."""
+>       with open(ACTIONS_FILE, "r") as f:
+             ^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/actions.json'
+
+tests/test_final_state.py:14: FileNotFoundError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_actions_file_exists - AssertionError: ...
+FAILED tests/test_final_state.py::test_actions_file_is_valid_json - FileNotFo...
+============================== 2 failed in 0.03s ===============================

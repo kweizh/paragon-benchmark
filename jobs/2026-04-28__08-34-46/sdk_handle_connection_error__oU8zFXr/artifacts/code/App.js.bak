@@ -1,0 +1,26 @@
+import React, { useState } from 'react';
+import { paragon } from '@useparagon/connect';
+
+function App() {
+  const [error, setError] = useState(false);
+
+  const handleConnect = async () => {
+    // Basic connection logic
+    try {
+      setError(false);
+      await paragon.connect('salesforce');
+    } catch (err) {
+      setError(true);
+    }
+  };
+
+  return (
+    <div>
+      <h1>Paragon Connection Test</h1>
+      <button id="connect-salesforce" onClick={handleConnect}>Connect Salesforce</button>
+      {error && <div id="connection-error">Connection failed</div>}
+    </div>
+  );
+}
+
+export default App;

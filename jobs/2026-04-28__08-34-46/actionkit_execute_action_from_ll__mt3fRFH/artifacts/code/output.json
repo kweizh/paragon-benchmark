@@ -1,0 +1,13 @@
+{
+  "status": 400,
+  "data": {
+    "message": "Integration not enabled for user.",
+    "code": "11002",
+    "status": 400,
+    "meta": {
+      "integrationId": "3bdec4d7-3b5a-46c5-b0ac-8994c78c6865",
+      "projectId": "REDACTED",
+      "personaId": "b8991d5a-7336-43dc-acd8-d4b8428682dc"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "paragon-connect-portal",
+  "version": "1.0.0",
+  "description": "Paragon Custom Connect Portal",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@useparagon/connect": "^2.3.2",
+    "express": "^4.22.1",
+    "jsonwebtoken": "^9.0.3"
+  }
+}

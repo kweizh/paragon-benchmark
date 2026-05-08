@@ -1,0 +1,60 @@
+downloading uv 0.9.7 x86_64-unknown-linux-gnu
+no checksums to verify
+installing to /root/.local/bin
+  uv
+  uvx
+everything's installed!
+
+To add $HOME/.local/bin to your PATH, either restart your shell or run:
+
+    source $HOME/.local/bin/env (sh, bash, zsh)
+    source $HOME/.local/bin/env.fish (fish)
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 14ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 3 items
+
+tests/test_final_state.py .FF                                            [100%]
+
+=================================== FAILURES ===================================
+____________________________ test_script_execution _____________________________
+
+    def test_script_execution():
+        """Priority 1: Execute the script and verify it outputs valid JSON."""
+        result = subprocess.run(
+            ["node", SCRIPT_PATH],
+            capture_output=True,
+            text=True,
+            cwd="/home/user/project"
+        )
+>       assert result.returncode == 0, f"Script execution failed: {result.stderr}"
+E       AssertionError: Script execution failed: Error fetching custom object: 404 Not Found
+E         {"statusCode":404,"message":"Cannot GET /projects/REDACTED/proxy/salesforce/services/data/v60.0/sobjects/Paragon_Test_Object__c","error":"Not Found"}
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['node', '/home/user/project/fetch_custom_object.js'], returncode=1, stdout='', stderr='Error fe...8-47ee-82bc-479995ff1a27/proxy/salesforce/services/data/v60.0/sobjects/Paragon_Test_Object__c","error":"Not Found"}\n').returncode
+
+tests/test_final_state.py:20: AssertionError
+______________________ test_script_content_for_proxy_url _______________________
+
+    def test_script_content_for_proxy_url():
+        """Priority 3: Verify the script uses the correct Proxy API endpoint and headers."""
+        with open(SCRIPT_PATH, "r") as f:
+            content = f.read()
+    
+        assert "proxy.useparagon.com/projects/" in content, "Script does not use the Paragon Proxy API endpoint."
+>       assert "sdk/proxy/salesforce" in content, "Script does not target the Salesforce proxy integration."
+E       AssertionError: Script does not target the Salesforce proxy integration.
+E       assert 'sdk/proxy/salesforce' in "const projectId = process.env.PARAGON_PROJECT_ID;\nconst userToken = process.env.PARAGON_USER_TOKEN;\n\nif (!projectI... console.error('Network or unexpected error:', error.message);\n    process.exit(1);\n  }\n}\n\nfetchCustomObject();\n"
+
+tests/test_final_state.py:34: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_script_exists
+FAILED tests/test_final_state.py::test_script_execution - AssertionError: Scr...
+FAILED tests/test_final_state.py::test_script_content_for_proxy_url - Asserti...
+========================= 2 failed, 1 passed in 1.10s ==========================
