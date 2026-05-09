@@ -1,0 +1,50 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 2,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778339191.867178,
+            "stop": 1778339192.848182
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_script_exists",
+                "status": "passed",
+                "duration": 0.0005537548568099737,
+                "start": 1778339191.8777995,
+                "stop": 1778339191.878634,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_execution",
+                "status": "passed",
+                "duration": 0.9543736027553678,
+                "start": 1778339191.87884,
+                "stop": 1778339192.8334608,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_content_for_proxy_url",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.000650233356282115,
+                "start": 1778339192.8336825,
+                "stop": 1778339192.8480003,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_script_content_for_proxy_url():\n        \"\"\"Priority 3: Verify the script uses the correct Proxy API endpoint and headers.\"\"\"\n        with open(SCRIPT_PATH, \"r\") as f:\n            content = f.read()\n    \n        assert \"proxy.useparagon.com/projects/\" in content, \"Script does not use the Paragon Proxy API endpoint.\"\n        assert \"sdk/proxy/salesforce\" in content, \"Script does not target the Salesforce proxy integration.\"\n>       assert \"X-Paragon-Proxy-Url\" in content, \"Script is missing the X-Paragon-Proxy-Url header.\"\nE       AssertionError: Script is missing the X-Paragon-Proxy-Url header.\nE       assert 'X-Paragon-Proxy-Url' in 'const projectId = process.env.PARAGON_PROJECT_ID;\\nconst userToken = process.env.PARAGON_USER_TOKEN;\\n\\nif (!projectI...));\\n  } catch (error) {\\n    console.error(\"Error fetching custom object:\", error);\\n  }\\n}\\n\\nfetchCustomObject();\\n'\n\ntests/test_final_state.py:35: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

@@ -1,0 +1,71 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 5,
+            "passed": 3,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778338686.3873696,
+            "stop": 1778338687.823579
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_script_exists",
+                "status": "passed",
+                "duration": 0.0004736331757158041,
+                "start": 1778338686.4012697,
+                "stop": 1778338686.4019434,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_reads_trail_id",
+                "status": "passed",
+                "duration": 0.00043005309998989105,
+                "start": 1778338686.402132,
+                "stop": 1778338686.4026933,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_log_file_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0005214279517531395,
+                "start": 1778338686.4028606,
+                "stop": 1778338686.4173098,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_log_file_exists():\n>       assert os.path.isfile(LOG_FILE), f\"Log file {LOG_FILE} not found.\"\nE       AssertionError: Log file /home/user/project/output.log not found.\nE       assert False\nE        +  where False = <function isfile at 0x73a35b7d8220>('/home/user/project/output.log')\nE        +    where <function isfile at 0x73a35b7d8220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:24: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_slack_file_uploaded",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.7220437789801508,
+                "start": 1778338686.4174924,
+                "stop": 1778338687.1435325,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_slack_file_uploaded():\n        trail_id = get_trail_id()\n        channel_name = f\"{CHANNEL_BASENAME}-{trail_id}\"\n        slack_token = os.environ.get(\"SLACK_TOKEN\")\n        assert slack_token, \"SLACK_TOKEN environment variable is not set.\"\n    \n        # 1. Get channel ID\n        result = subprocess.run([\n            \"curl\", \"-sS\", \"-H\", f\"Authorization: Bearer {slack_token}\",\n            \"https://slack.com/api/conversations.list?limit=200&types=public_channel,private_channel\"\n        ], capture_output=True, text=True)\n        assert result.returncode == 0, f\"curl conversations.list failed: {result.stderr}\"\n        data = json.loads(result.stdout)\n        assert data.get(\"ok\"), f\"Slack API error: {data}\"\n    \n        channels = data.get(\"channels\", [])\n        channel_id = None\n        for c in channels:\n            if c[\"name\"] == channel_name:\n                channel_id = c[\"id\"]\n                break\n    \n>       assert channel_id is not None, f\"Expected channel '{channel_name}' not found in Slack workspace.\"\nE       AssertionError: Expected channel 'test-channel-actionkit_hex_file_upload__6n5J26F' not found in Slack workspace.\nE       assert None is not None\n\ntests/test_final_state.py:48: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_cleanup_slack_channel",
+                "status": "passed",
+                "duration": 0.6793826660141349,
+                "start": 1778338687.1437535,
+                "stop": 1778338687.8233936,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

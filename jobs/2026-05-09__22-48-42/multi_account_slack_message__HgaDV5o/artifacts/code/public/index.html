@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Send Slack Message</title>
+  <script src="https://cdn.useparagon.com/latest/sdk.js"></script>
+</head>
+<body>
+  <h1>Send a Message to Slack</h1>
+  <div id="auth-section">
+    <button id="connect-paragon">Authenticate & Load Accounts</button>
+  </div>
+  
+  <div id="app-section" style="display:none;">
+    <form id="message-form">
+      <label>Select Slack Account:</label>
+      <select id="account-select" required></select>
+      <br><br>
+      <label>Channel:</label>
+      <input type="text" id="channel-input" value="#general" required />
+      <br><br>
+      <label>Message:</label>
+      <input type="text" id="message-input" required />
+      <br><br>
+      <button type="submit">Send Message</button>
+    </form>
+    <pre id="result"></pre>
+  </div>
+
+  <script>
+    let paragonToken = '';
+    
+    async function init() {
+      try {
+        const res = await fetch('/api/paragon-token');
+        const data = await res.json();
+        paragonToken = data.token;
+        
+        await paragon.authenticate(data.projectId, paragonToken);
+        
+        const user = paragon.getUser();
+        const slackIntegration = user.authenticatedIntegrations.find(i => i.type === 'slack');
+        
+        if (!slackIntegration) {
+          document.getElementById('result').innerText = 'No Slack accounts connected.';
+          return;
+        }
+        
+        const credentials = slackIntegration.credentials || [{ id: slackIntegration.id, name: 'Default Account' }];
+        const select = document.getElementById('account-select');
+        select.innerHTML = ''; // clear
+        
+        credentials.forEach(cred => {
+          const option = document.createElement('option');
+          option.value = cred.id;
+          option.text = cred.name || cred.workspaceId || cred.id;
+          select.appendChild(option);
+        });
+        
+        document.getElementById('auth-section').style.display = 'none';
+        document.getElementById('app-section').style.display = 'block';
+      } catch (err) {
+        document.getElementById('result').innerText = 'Error: ' + err.message;
+      }
+    }
+    
+    document.getElementById('connect-paragon').addEventListener('click', init);
+    
+    document.getElementById('message-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const accountId = document.getElementById('account-select').value;
+      const channel = document.getElementById('channel-input').value;
+      const message = document.getElementById('message-input').value;
+      
+      try {
+        const res = await fetch('/api/send-message', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ accountId, channel, message })
+        });
+        
+        const data = await res.json();
+        document.getElementById('result').innerText = JSON.stringify(data, null, 2);
+      } catch (err) {
+        document.getElementById('result').innerText = 'Error: ' + err.message;
+      }
+    });
+  </script>
+</body>
+</html>

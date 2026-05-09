@@ -1,0 +1,51 @@
+{
+    "id": "1784d99f-47d2-46d4-b0f6-8e11dcb3f192",
+    "started_at": "2026-05-09T22:48:45.882336",
+    "finished_at": "2026-05-09T23:20:20.299471",
+    "n_total_trials": 18,
+    "stats": {
+        "n_trials": 18,
+        "n_errors": 2,
+        "evals": {
+            "pochi__gemini-3.1-pro__tasks": {
+                "n_trials": 16,
+                "n_errors": 2,
+                "metrics": [
+                    {
+                        "mean": 0.2222222222222222
+                    }
+                ],
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "actionkit_dynamic_params__H7xnLMJ",
+                            "actionkit_error_handling__b7bGBZu",
+                            "headless_connection_trigger__xmgUqbe",
+                            "proxy_api_graphql__XDZUCPb",
+                            "proxy_api_oauth_error__vPZmD2P",
+                            "actionkit_conditional_execution__VpmrEcf",
+                            "actionkit_hex_file_upload__6n5J26F",
+                            "actionkit_schema_to_openai__pWQicgn",
+                            "multi_account_slack_message__HgaDV5o",
+                            "proxy_api_salesforce_custom_obje__TmBVVfZ",
+                            "sdk_custom_connect_portal__a4naPkT",
+                            "sdk_handle_connection_error__e2erDZJ"
+                        ],
+                        "1.0": [
+                            "actionkit_execute_action_from_ll__G7gyYbY",
+                            "actionkit_fetch_available__zUHChQt",
+                            "install_action_programmatically__KyBMadP",
+                            "actionkit_webhook_trigger__GyjCoxF"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "AgentSetupTimeoutError": [
+                        "actionkit_unauthorized_token__wZjw7B5",
+                        "integration_discovery__ke3fqJP"
+                    ]
+                }
+            }
+        }
+    }
+}

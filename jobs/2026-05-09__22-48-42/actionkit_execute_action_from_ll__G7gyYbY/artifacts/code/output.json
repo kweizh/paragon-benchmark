@@ -1,0 +1,11 @@
+{
+  "status": 401,
+  "data": {
+    "message": "Your authorization token is malformed. If you're using a signing key, make sure the private key you used to generate the token has a new line at the end of it.",
+    "code": "7204",
+    "status": 401,
+    "meta": {
+      "projectId": "REDACTED"
+    }
+  }
+}

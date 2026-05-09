@@ -1,0 +1,56 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 4,
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778338571.0418942,
+            "stop": 1778338571.1168394
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_install_script_exists",
+                "status": "passed",
+                "duration": 0.00047441315837204456,
+                "start": 1778338571.055346,
+                "stop": 1778338571.0560231,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_install_script_content",
+                "status": "passed",
+                "duration": 0.0004293699748814106,
+                "start": 1778338571.056273,
+                "stop": 1778338571.0568337,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_execution",
+                "status": "passed",
+                "duration": 0.05862906505353749,
+                "start": 1778338571.0570016,
+                "stop": 1778338571.1158438,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_log_file_exists",
+                "status": "passed",
+                "duration": 0.0004974317271262407,
+                "start": 1778338571.1160645,
+                "stop": 1778338571.1166844,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

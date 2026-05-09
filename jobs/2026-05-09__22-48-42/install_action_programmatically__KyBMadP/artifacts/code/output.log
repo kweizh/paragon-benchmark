@@ -1,0 +1,3 @@
+{
+  "error": "Failed to authenticate user with Paragon: Cannot read properties of undefined (reading 'ZEUS_PUBLIC_URL')"
+}

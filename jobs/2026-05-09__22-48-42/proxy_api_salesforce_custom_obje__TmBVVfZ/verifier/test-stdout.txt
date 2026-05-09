@@ -1,0 +1,43 @@
+downloading uv 0.9.7 x86_64-unknown-linux-gnu
+no checksums to verify
+installing to /root/.local/bin
+  uv
+  uvx
+everything's installed!
+
+To add $HOME/.local/bin to your PATH, either restart your shell or run:
+
+    source $HOME/.local/bin/env (sh, bash, zsh)
+    source $HOME/.local/bin/env.fish (fish)
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 32ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 3 items
+
+tests/test_final_state.py ..F                                            [100%]
+
+=================================== FAILURES ===================================
+______________________ test_script_content_for_proxy_url _______________________
+
+    def test_script_content_for_proxy_url():
+        """Priority 3: Verify the script uses the correct Proxy API endpoint and headers."""
+        with open(SCRIPT_PATH, "r") as f:
+            content = f.read()
+    
+        assert "proxy.useparagon.com/projects/" in content, "Script does not use the Paragon Proxy API endpoint."
+        assert "sdk/proxy/salesforce" in content, "Script does not target the Salesforce proxy integration."
+>       assert "X-Paragon-Proxy-Url" in content, "Script is missing the X-Paragon-Proxy-Url header."
+E       AssertionError: Script is missing the X-Paragon-Proxy-Url header.
+E       assert 'X-Paragon-Proxy-Url' in 'const projectId = process.env.PARAGON_PROJECT_ID;\nconst userToken = process.env.PARAGON_USER_TOKEN;\n\nif (!projectI...));\n  } catch (error) {\n    console.error("Error fetching custom object:", error);\n  }\n}\n\nfetchCustomObject();\n'
+
+tests/test_final_state.py:35: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_script_exists
+PASSED tests/test_final_state.py::test_script_execution
+FAILED tests/test_final_state.py::test_script_content_for_proxy_url - Asserti...
+========================= 1 failed, 2 passed in 0.98s ==========================

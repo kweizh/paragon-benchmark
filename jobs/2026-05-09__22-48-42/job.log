@@ -1,0 +1,1431 @@
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo actionkit_dynamic_params__H7xnLMJ > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Execute ActionKit Action with Dynamic Parameters
+
+## Background
+Paragon's ActionKit API allows you to execute 3rd-party actions programmatically. You need to write a Node.js script that sends a Slack message using ActionKit, dynamically setting the channel name based on the current trail ID.
+
+## Requirements
+- Write a Node.js script at `/home/user/project/send_message.js`.
+- The script must read the `trail_id` from `/logs/artifacts/trial_id`.
+- The script must use `fetch` to send a `POST` request to `https://actionkit.useparagon.com/projects/${PARAGON_PROJECT_ID}/actions`.
+- The request must include the `Authorization: Bearer ${PARAGON_USER_TOKEN}` header.
+- The JSON body must specify the action `SLACK_SEND_MESSAGE`.
+- The parameters must include:
+  - `channel`: `#test-channel-${trail_id}`
+  - `message`: "Hello from ActionKit!"
+- The script should execute the request and print the response status.
+
+## Implementation Guide
+1. Read the `trail_id` from `/logs/artifacts/trial_id`.
+2. Read `PARAGON_PROJECT_ID`, `PARAGON_SIGNING_KEY` and `PARAGON_USER_TOKEN` from environment variables.
+3. Construct the fetch request to the ActionKit API.
+4. Execute the script using `node /home/user/project/send_message.js` and save the output to `/home/user/project/output.log`.
+
+## Constraints
+- Project path: `/home/user/project`
+- Log file: `/home/user/project/output.log`
+- Do not hardcode the `trail_id`, `PARAGON_PROJECT_ID`, `PARAGON_SIGNING_KEY`, or `PARAGON_USER_TOKEN`.
+
+## Integrations
+- Slack
+EOF
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Running command: echo actionkit_fetch_available__zUHChQt > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Fetch ActionKit Available Actions
+
+## Background
+Paragon's ActionKit API allows you to retrieve a list of available actions for an authenticated user in JSON Schema format. This is useful for passing tool definitions to an LLM.
+
+## Requirements
+- You need to fetch the available actions for a Paragon project using `curl`.
+- The Project ID read from env `PARAGON_PROJECT_ID`.
+- The Paragon User Token read from env `PARAGON_USER_TOKEN`.
+- Save the HTTP response body to `/home/user/actions.json`.
+
+## Implementation Guide
+1. Construct a `curl` GET request to `https://actionkit.useparagon.com/projects/${PARAGON_PROJECT_ID}/actions`.
+2. Include the `Authorization: Bearer ${PARAGON_USER_TOKEN}` header.
+3. Include the `Content-Type: application/json` header.
+4. Output the result directly to `/home/user/actions.json`.
+
+## Constraints
+- Project path: /home/user
+- Log file: /home/user/actions.json
+- Must be a single `curl` command (or a short bash script) that outputs to `actions.json`.
+
+## Integrations
+- None
+EOF
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo actionkit_error_handling__b7bGBZu > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Handle ActionKit API Errors
+
+## Background
+When using Paragon's ActionKit API, requests might fail due to invalid JSON schemas (e.g., missing parameters) or invalid authentication tokens. It is crucial to handle these errors gracefully and log them.
+
+## Requirements
+- Create a Node.js script `call_action.js` in `/home/user/project`.
+- The script should send a POST request to `https://actionkit.useparagon.com/projects/${process.env.PROJECT_ID}/actions`.
+- Use the `PARAGON_USER_TOKEN` environment variable for the Bearer token in the `Authorization` header.
+- Send a JSON body with `action: "SLACK_SEND_MESSAGE"` and an empty `parameters: {}` object.
+- If the request fails (non-2xx status), catch the error gracefully without crashing.
+- Write the error details to `/home/user/project/error_log.json` as a JSON object containing `status` (the HTTP status code) and `message` (the error message or response body).
+
+## Constraints
+- Project path: `/home/user/project`
+- Log file: `/home/user/project/error_log.json`
+- Use Node.js built-in `fetch` (Node 18+).
+- Read `PARAGON_PROJECT_ID`, `PARAGON_SIGNING_KEY` and `PARAGON_USER_TOKEN` from environment variables.
+
+## Integrations
+- None
+EOF
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo actionkit_execute_action_from_ll__G7gyYbY > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Execute ActionKit Action from LLM
+
+## Background
+You are building an AI agent that uses Paragon's ActionKit to perform actions on behalf of users in connected 3rd-party SaaS apps. The LLM has generated a JSON payload specifying an action to execute, which is saved in `/home/user/app/llm_response.json`.
+
+## Requirements
+- Initialize a Node.js project in `/home/user/app`.
+- Write a script `execute.js` that reads the pre-existing LLM JSON output from `llm_response.json`.
+- The script must generate a Paragon User Token (JWT) server-side using the `PARAGON_SIGNING_KEY` environment variable. The JWT payload must include `sub: "user-123"` and an `iat` (issued at time).
+- The script must make a POST request to `https://actionkit.useparagon.com/projects/{PARAGON_PROJECT_ID}/actions` (using the `PARAGON_PROJECT_ID` environment variable) with the JWT in the `Authorization: Bearer <token>` header.
+- The request body must match the parsed JSON from `llm_response.json`.
+- The script must save the HTTP response status code and response JSON body to `/home/user/app/output.json` in the format `{ "status": 200, "data": { ... } }`.
+
+## Implementation Guide
+1. `cd /home/user/app` and run `npm init -y`.
+2. Install the `jsonwebtoken` package to sign the JWT.
+3. Create `execute.js` using Node's built-in `fetch` (available in Node 18+).
+4. Read `llm_response.json`.
+5. Generate the JWT using `jsonwebtoken.sign` with the HS256 algorithm.
+6. Make the POST request to the ActionKit API.
+7. Write the response status and parsed JSON body to `output.json`.
+
+## Constraints
+- Project path: `/home/user/app`
+- Log file: `/home/user/app/output.json`
+- Pre-existing file: `/home/user/app/llm_response.json`
+- Use Node.js built-in `fetch`.
+- The script must be executable via `node execute.js`.
+
+## Integrations
+- Paragon (via ActionKit API)
+EOF
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo headless_connection_trigger__xmgUqbe > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Headless Connection Trigger
+
+## Background
+Paragon provides a Connect Portal that allows users to authorize third-party integrations. You need to implement a custom UI button that triggers the Paragon headless connection flow for Slack and handles the promise returned by the connection attempt.
+
+## Requirements
+- Create a simple web page with a button labeled "Connect Slack" (id: `connect-slack`).
+- When clicked, the button must call `paragon.connect('slack')` using the `@useparagon/connect` SDK.
+- The page must include the `@useparagon/connect` SDK.
+- The frontend must authenticate with Paragon before allowing the connection. To do this, it should fetch a user token from your backend.
+- The backend must generate a Paragon User Token (JWT) signed with the `PARAGON_SIGNING_KEY` environment variable. The JWT must include a `sub` claim (e.g., "test-user-1") and `iat`.
+- The backend must also expose the `PARAGON_PROJECT_ID` to the frontend.
+- On successful connection, update a DOM element with id `status` to show "Connected". On failure, update it to "Failed".
+
+## Implementation Guide
+1. Initialize a Node.js project in `/home/user/app`.
+2. Install `express`, `jsonwebtoken`, and `@useparagon/connect`.
+3. Create `server.js` that serves static files from a `public` directory and provides a `/api/token` endpoint. The token endpoint should generate a JWT using `process.env.PARAGON_SIGNING_KEY` and return it along with `process.env.PARAGON_PROJECT_ID`.
+4. Create `public/index.html` with the "Connect Slack" button (`<button id="connect-slack">Connect Slack</button>`) and a status div (`<div id="status">Pending</div>`).
+5. In `public/index.html`, load the SDK (e.g., via a bundler like Webpack/Vite, or a script tag if supported, but typically you build it or use a module bundler. For simplicity, you can use a build step with `esbuild` or `webpack`, or serve it from `node_modules`).
+6. Fetch `/api/token`, call `paragon.authenticate(projectId, token)`, and add a click listener to the button that calls `paragon.connect('slack')`. Handle the promise to update the `#status` text.
+
+## Constraints
+- Project path: `/home/user/app`
+- Start command: `npm run build && npm start` (configure your `package.json` to build the frontend if you use a bundler, then start the express server).
+- Port: 3000
+- The backend must read `PARAGON_PROJECT_ID` and `PARAGON_SIGNING_KEY` from the environment.
+
+## Integrations
+- Slack
+EOF
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo proxy_api_oauth_error__vPZmD2P > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Handle Paragon Proxy API OAuth Errors
+
+## Background
+When using the Paragon Proxy API to make requests to 3rd-party integrations, the underlying OAuth token might expire and fail to refresh. In such cases, the Proxy API returns a 401 status. Your application needs to handle this gracefully by logging a specific message.
+
+## Requirements
+You are provided with a Node.js script `/home/user/app/fetch_data.js` that makes a GET request to the Paragon Proxy API (`https://proxy.useparagon.com/projects/${PARAGON_PROJECT_ID}/sdk/proxy/slack/users.identity`) using an invalid token, which will simulate an OAuth refresh failure (401 Unauthorized).
+Currently, it does not handle 401 errors specifically.
+Modify `/home/user/app/fetch_data.js` so that if the Proxy API returns a 401 status, the script writes the exact string `User needs to reconnect` to `/home/user/app/error.log`.
+
+## Implementation Guide
+1. Open `/home/user/app/fetch_data.js`.
+2. Check the response status from the `fetch` call.
+3. If `response.status === 401`, write `User needs to reconnect` to `error.log` using the `fs` module (e.g., `fs.writeFileSync('error.log', 'User needs to reconnect')`).
+4. Ensure the script does not throw an unhandled exception when a 401 occurs.
+
+## Constraints
+- Project path: /home/user/app
+- Log file: /home/user/app/error.log
+- Do not change the existing URL or fetch options, just add the error handling logic.
+EOF
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo proxy_api_graphql__XDZUCPb > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Send a GraphQL Request via the Paragon Proxy API
+
+## Background
+Paragon's Proxy API allows you to make direct, authenticated requests to any 3rd-party endpoint using the `X-Paragon-Proxy-Url` header. You need to write a Node.js script that uses the Proxy API to send a GraphQL request to GitHub.
+
+## Requirements
+- Complete the `/home/user/app/script.js` file to send a POST request to the Paragon Proxy API.
+- The Proxy API endpoint should be constructed using the `PARAGON_PROJECT_ID` environment variable: `https://proxy.useparagon.com/projects/${PARAGON_PROJECT_ID}/sdk/proxy/github`.
+- Set the `Authorization` header to `Bearer ${PARAGON_USER_TOKEN}` using the `PARAGON_USER_TOKEN` environment variable.
+- Set the `X-Paragon-Proxy-Url` header to the GitHub GraphQL endpoint: `https://api.github.com/graphql`.
+- The request body must be a JSON object containing the GraphQL query: `query { viewer { login } }`.
+- The script must print the JSON response to the console.
+
+## Implementation Guide
+1. Read `PARAGON_PROJECT_ID` and `PARAGON_USER_TOKEN` from `process.env`.
+2. Use the built-in `fetch` API (Node.js 18+) to make the request.
+3. Ensure the `Content-Type` header is set to `application/json`.
+4. Print the response using `console.log(JSON.stringify(await response.json()))`.
+
+## Constraints
+- Project path: `/home/user/app`
+- Log file: `/home/user/app/output.log`
+- Do not use any third-party libraries (use built-in `fetch`).
+
+## Integrations
+- GitHub
+EOF
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo install_action_programmatically__KyBMadP > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Programmatically Install a Workflow Action
+
+## Background
+You need to use the Paragon SDK to authenticate a user and programmatically install a workflow action for them using `paragon.installAction`.
+
+## Requirements
+- Initialize a Node.js project in `/home/user/paragon-app`.
+- Install `@useparagon/connect`.
+- Create a script `install.js` that authenticates with Paragon using `paragon.authenticate(PROJECT_ID, USER_TOKEN)`.
+- Use `paragon.installAction(integrationType, actionId, params)` to install the `send_message` action for the `slack` integration.
+- The parameters for the action should be `{ channel: '#general' }`.
+- Log the result to `/home/user/paragon-app/output.log`.
+
+## Implementation Guide
+1. `cd /home/user/paragon-app`
+2. `npm init -y`
+3. `npm install @useparagon/connect`
+4. Create `install.js` with the required logic.
+5. Run the script using `node install.js`.
+
+## Constraints
+- Project path: `/home/user/paragon-app`
+- Log file: `/home/user/paragon-app/output.log`
+- `PROJECT_ID` and `USER_TOKEN` should be read from environment variables `PARAGON_PROJECT_ID` and `PARAGON_USER_TOKEN`.
+
+## Integrations
+- None
+EOF
+Trial actionkit_unauthorized_token__wZjw7B5 failed: Agent setup timed out after 360.0 seconds
+Running command: apt-get update && apt-get install -y curl ripgrep
+Not retrying trial because the maximum number of retries has been reached
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo actionkit_conditional_execution__VpmrEcf > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Conditional Execution with Paragon ActionKit
+
+## Background
+You need to write a Node.js script that conditionally executes a Paragon action based on whether the integration is connected for the user.
+
+## Requirements
+- Write a script in `/home/user/paragon-task/index.js`.
+- The script should fetch the available actions for the user via the Paragon ActionKit API.
+- If the `SLACK_SEND_MESSAGE` action is available, execute it to send a message to the `#general` channel. The message text must be `Hello from Paragon! trial_id: <trial_id>` where `<trial_id>` is read from `/logs/artifacts/trial_id`.
+- If the action is not available, do not attempt to execute it.
+- Log the outcome to `/home/user/paragon-task/output.log` (e.g., 'Message sent' or 'Action not available').
+
+## Constraints
+- Project path: `/home/user/paragon-task`
+- Log file: `/home/user/paragon-task/output.log`
+- Read `trial_id` from `/logs/artifacts/trial_id`.
+- Use `PARAGON_PROJECT_ID` and `PARAGON_USER_TOKEN` from the environment.
+- Do NOT mock the API. Use the real Paragon ActionKit API.
+
+## Integrations
+- Paragon
+- Slack
+EOF
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Running command: echo actionkit_schema_to_openai__pWQicgn > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Convert ActionKit Schemas to OpenAI Tools
+
+## Background
+Paragon ActionKit allows AI agents to interact with connected 3rd-party integrations. The endpoint `GET https://actionkit.useparagon.com/projects/{projectId}/actions` returns a list of available actions for the user. These actions need to be converted into OpenAI-compatible tool definitions so they can be passed to the OpenAI API.
+
+## Requirements
+- Create a Node.js script `convert.js` in `/home/user/project` that fetches the available actions from ActionKit.
+- The script must use the environment variables `PARAGON_PROJECT_ID` and `PARAGON_USER_TOKEN` for authentication.
+- For each action returned by the API, convert it into an OpenAI tool definition format:
+  ```json
+  {
+    "type": "function",
+    "function": {
+      "name": "<action_name>",
+      "description": "<action_description>",
+      "parameters": <action_parameters_schema>
+    }
+  }
+  ```
+- The script must write the resulting array of OpenAI tools to a file named `tools.json` in the same directory.
+
+## Constraints
+- Project path: `/home/user/project`
+- Output file: `/home/user/project/tools.json`
+- Do not use any external dependencies other than built-in Node.js modules.
+
+## Integrations
+- Paragon
+EOF
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo actionkit_hex_file_upload__6n5J26F > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Hex-Encoded File Upload via ActionKit
+
+## Background
+Paragon's ActionKit API requires files to be hex-encoded in the JSON body, which is non-standard for many developers. You need to implement a feature that reads a local file, hex-encodes it, and sends it to Slack via ActionKit.
+
+## Requirements
+- Write a Node.js script at `/home/user/project/upload.js`.
+- The script must read the `trail_id` from `/logs/artifacts/trial_id`.
+- The script must read a local file at `/home/user/project/report.txt` and hex-encode its contents.
+- The script must use `fetch` to send a `POST` request to `https://actionkit.useparagon.com/projects/${PARAGON_PROJECT_ID}/actions`.
+- The request must include the `Authorization: Bearer ${PARAGON_USER_TOKEN}` header.
+- The JSON body must specify the action `SLACK_UPLOAD_FILE`.
+- The parameters must include:
+  - `channels`: `#test-channel-${trail_id}`
+  - `file`: The hex-encoded content of `report.txt`
+  - `filename`: `report.txt`
+- The script should execute the request and print the response status.
+
+## Constraints
+- Project path: `/home/user/project`
+- Log file: `/home/user/project/output.log`
+- Do not hardcode the `trail_id`, `PARAGON_PROJECT_ID`, or `PARAGON_USER_TOKEN`.
+- The file must be hex-encoded.
+
+## Integrations
+- Slack
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo actionkit_webhook_trigger__GyjCoxF > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Trigger Paragon Workflow via ActionKit
+
+## Background
+Paragon's ActionKit allows developers to execute specific actions or trigger workflows programmatically. You need to write a Node.js script that triggers a Paragon workflow via ActionKit for a specific user.
+
+## Requirements
+- Create a Node.js script `trigger.js` that triggers a Paragon workflow via ActionKit.
+- The script must generate a Paragon User Token (JWT) using the `PARAGON_SIGNING_KEY` and authenticate the request.
+- The ActionKit request should execute the action `CUSTOM_WORKFLOW_TRIGGER`.
+- Pass the following parameters in the request payload: `{"event": "test_event", "value": 42}`.
+- The response from the ActionKit API must be saved to `output.json`.
+
+## Constraints
+- Project path: `/home/user/project`
+- Read `PARAGON_PROJECT_ID` and `PARAGON_SIGNING_KEY` from environment variables.
+- Use `test-user-123` as the user ID (`sub`) for the JWT.
+- Output file: `/home/user/project/output.json`
+- Use real system and API keys from env, no fake dependencies or mocking.
+EOF
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo multi_account_slack_message__HgaDV5o > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Multi-Account Slack Messaging with Paragon
+
+## Background
+Paragon allows users to connect multiple accounts of the same integration type (e.g., multiple Slack workspaces). When executing actions on behalf of a user with multiple connected accounts, the application must specify which account to use via the `X-Paragon-Credential` header. You need to build a simple web application that allows users to send a Slack message and choose which of their connected Slack accounts to send it to.
+
+## Requirements
+- Build a simple Node.js/Express web application with a frontend and backend.
+- The frontend must display a list of the user's connected Slack accounts (using `paragon.getUser()`).
+- The frontend must include a form with a dropdown selector to choose a specific Slack account and a text input for the message.
+- When the form is submitted, the backend must use the Paragon Proxy API or ActionKit API to send the message to the selected Slack account.
+- The backend must pass the correct `X-Paragon-Credential` header to ensure the message is sent to the selected account.
+- The application must use real environment variables for Paragon credentials (`PARAGON_PROJECT_ID`, `PARAGON_SIGNING_KEY`). No mocking.
+- Use the provided user ID `zealt-user01` to generate the Paragon user token on the backend.
+
+## Constraints
+- Project path: /home/user/project
+- Start command: npm start
+- Port: 3000
+- Read the trial ID from `/logs/artifacts/trial_id` and append it to the message sent to Slack (e.g., "Hello from Paragon! Trial: ${trial_id}").
+
+## Integrations
+- Paragon
+- Slack
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Trial integration_discovery__ke3fqJP failed: Agent setup timed out after 360.0 seconds
+Not retrying trial because the maximum number of retries has been reached
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo proxy_api_salesforce_custom_obje__TmBVVfZ > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Fetch Salesforce Custom Object via Proxy API
+
+## Background
+You have an active Paragon project and need to interact with a Salesforce custom object that isn't available in the standard Paragon action list. You can use the Paragon Proxy API to make a direct, authenticated request to the Salesforce REST API.
+
+## Requirements
+- Create a Node.js script at `/home/user/project/fetch_custom_object.js` that uses the Paragon Proxy API to fetch a custom object from Salesforce.
+- The script should read the `PARAGON_PROJECT_ID` and `PARAGON_USER_TOKEN` environment variables for authentication.
+- The script should make a GET request to the Salesforce API to fetch a custom object named `Paragon_Test_Object__c`.
+- The script should print the JSON response from Salesforce to the console.
+
+## Constraints
+- Project path: `/home/user/project`
+- The script must be executable via `node /home/user/project/fetch_custom_object.js`.
+- Use the standard `fetch` API or any standard HTTP client.
+- Do NOT provide an implementation guide in the instruction.
+
+## Integrations
+- Salesforce
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo sdk_custom_connect_portal__a4naPkT > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Paragon Custom Connect Portal
+
+## Background
+You need to implement a web UI that allows users to authenticate and open the Paragon Connect Portal for the Slack integration.
+
+## Requirements
+- Create a simple Node.js web application (e.g., Express.js serving an HTML page) in `/home/user/app`.
+- The server must generate a Paragon User Token (JWT) using the `PARAGON_SIGNING_KEY` environment variable. The JWT must include `sub` (user ID) and `iat` (issued at time).
+- The client must initialize the Paragon SDK (`@useparagon/connect`) using the `PARAGON_PROJECT_ID` environment variable and the generated User Token.
+- The UI must have a button with the text 'Connect Slack' that triggers `paragon.connect('slack')`.
+
+## Constraints
+- Project path: /home/user/app
+- Start command: npm start
+- Port: 3000
+- Environment Variables provided: `PARAGON_PROJECT_ID`, `PARAGON_SIGNING_KEY`
+- The server must listen on port 3000.
+- The frontend must be accessible at `http://localhost:3000`.
+EOF
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo sdk_handle_connection_error__e2erDZJ > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Handle Paragon SDK Connection Errors
+
+## Background
+Our application uses the Paragon SDK to allow users to connect third-party integrations (like Salesforce or Slack). Sometimes the connection process fails (e.g., the user cancels the OAuth flow, or an API error occurs). We need to gracefully handle these connection errors in our frontend.
+
+## Requirements
+- Intercept or catch errors that occur during the `paragon.connect('salesforce')` process.
+- When an error is encountered, display an HTML element with the ID `connection-error` containing the text `Connection failed`.
+- Do not modify the existing successful connection logic.
+
+## Constraints
+- Project path: `/home/user/app`
+- Start command: `npm start`
+- Port: `3000`
+- The project is a simple React application using `@useparagon/connect`.
+
+## Integrations
+- Paragon
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.

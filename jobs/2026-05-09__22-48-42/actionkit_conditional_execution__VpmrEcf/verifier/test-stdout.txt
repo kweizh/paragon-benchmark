@@ -1,0 +1,67 @@
+downloading uv 0.9.7 x86_64-unknown-linux-gnu
+no checksums to verify
+installing to /root/.local/bin
+  uv
+  uvx
+everything's installed!
+
+To add $HOME/.local/bin to your PATH, either restart your shell or run:
+
+    source $HOME/.local/bin/env (sh, bash, zsh)
+    source $HOME/.local/bin/env.fish (fish)
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 40ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 3 items
+
+tests/test_final_state.py ..F                                            [100%]
+
+=================================== FAILURES ===================================
+___________________________ test_slack_message_sent ____________________________
+
+    def test_slack_message_sent():
+        trial_id = get_trial_id()
+        slack_token = os.environ.get("SLACK_TOKEN")
+        assert slack_token is not None, "SLACK_TOKEN environment variable not set."
+    
+        # 1. Get channel list to find the ID of #general
+        list_result = subprocess.run([
+            "curl", "-sS", "-H", f"Authorization: Bearer {slack_token}",
+            "https://slack.com/api/conversations.list?limit=200&types=public_channel,private_channel"
+        ], capture_output=True, text=True)
+        assert list_result.returncode == 0, f"curl conversations.list failed: {list_result.stderr}"
+    
+        list_data = json.loads(list_result.stdout)
+        assert list_data.get("ok"), f"Slack API error: {list_data}"
+    
+        channels = list_data.get("channels", [])
+        channel_id = None
+        for c in channels:
+            if c["name"] == TARGET_CHANNEL_NAME:
+                channel_id = c["id"]
+                break
+    
+        assert channel_id is not None, f"Channel #{TARGET_CHANNEL_NAME} not found."
+    
+        # 2. Get channel history to find the message
+        history_result = subprocess.run([
+            "curl", "-sS", "-H", f"Authorization: Bearer {slack_token}",
+            f"https://slack.com/api/conversations.history?channel={channel_id}&limit=100"
+        ], capture_output=True, text=True)
+>       assert history_result.returncode == 0, f"curl conversations.history failed: {history_result.stderr}"
+E       AssertionError: curl conversations.history failed: curl: (28) SSL connection timeout
+E         
+E       assert 28 == 0
+E        +  where 28 = CompletedProcess(args=['curl', '-sS', '-H', 'Authorization: Bearer API_KEY...ations.history?channel=C0B2T8NRASD&limit=100'], returncode=28, stdout='', stderr='curl: (28) SSL connection timeout\n').returncode
+
+tests/test_final_state.py:59: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_script_execution
+PASSED tests/test_final_state.py::test_log_file_exists
+FAILED tests/test_final_state.py::test_slack_message_sent - AssertionError: c...
+=================== 1 failed, 2 passed in 302.01s (0:05:02) ====================

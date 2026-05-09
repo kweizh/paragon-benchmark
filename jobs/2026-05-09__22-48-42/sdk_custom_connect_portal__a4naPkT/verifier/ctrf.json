@@ -1,0 +1,32 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 1,
+            "passed": 0,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778339533.2597132,
+            "stop": 1778339837.0166018
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_connect_portal",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 303.73027750616893,
+                "start": 1778339533.2697475,
+                "stop": 1778339837.0163743,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\n\n    def test_connect_portal(start_app):\n        reason = \"The application should have a button that opens the Paragon Connect Portal for Slack.\"\n        truth = \"Navigate to http://localhost:3000. Verify that the page loads successfully. Verify that a button with the exact text 'Connect Slack' exists. Click the 'Connect Slack' button. Wait a moment and verify that the Paragon Connect Portal modal opens (look for an iframe with a title containing 'Paragon' or a modal UI from Paragon).\"\n    \n        verifier = PochiVerifier()\n        result = verifier.verify(\n            reason=reason,\n            truth=truth,\n            use_browser_agent=True,\n            trajectory_dir=\"/logs/verifier/pochi/test_connect_portal\"\n        )\n>       assert result.status == \"pass\", f\"Browser verification failed: {result.reason}\"\nE       AssertionError: Browser verification failed: The verification failed because the 'Connect Slack' button was disabled, preventing it from being clicked and thus the Paragon Connect Portal modal did not open. While the page loaded and the button was present, its disabled state blocked the subsequent steps of the test case.\nE       assert 'fail' == 'pass'\nE         \nE         - pass\nE         + fail\n\ntests/test_final_state.py:63: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

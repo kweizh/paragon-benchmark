@@ -1,0 +1,87 @@
+downloading uv 0.9.7 x86_64-unknown-linux-gnu
+curl: (18) Transferred a partial file
+failed to download https://github.com/astral-sh/uv/releases/download/0.9.7/uv-x86_64-unknown-linux-gnu.tar.gz
+this may be a standard network error, but it may also indicate
+that uv's release process is not working. When in doubt
+please feel free to open an issue!
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 2 items
+
+tests/test_final_state.py  items
+
+tests/test_final_state.py FF                                             [100%]
+
+=================================== FAILURES ===================================
+___________________________ test_browser_interaction ___________________________
+
+start_app = None
+
+    def test_browser_interaction(start_app):
+        trial_id = get_trial_id()
+        reason = "The application should display a list of connected Slack accounts, allow selecting one, and sending a message."
+        truth = f"Navigate to http://localhost:3000. Verify that the page loads and displays a dropdown for selecting a Slack account. Select a Slack account from the dropdown. Enter a message containing the text '{trial_id}' in the message input field. Submit the form. Verify that the form submission is successful."
+    
+        verifier = PochiVerifier()
+        result = verifier.verify(
+            reason=reason,
+            truth=truth,
+            use_browser_agent=True,
+            trajectory_dir="/logs/verifier/pochi/test_browser_interaction"
+        )
+>       assert result.status == "pass", f"Browser verification failed: {result.reason}"
+E       AssertionError: Browser verification failed: The page failed to load the Slack account dropdown because the Paragon SDK (https://cdn.useparagon.com/latest/sdk.js) returned a 404 error (NoSuchKey), causing the 'Authenticate & Load Accounts' button to fail with 'Error: paragon is not defined'. Consequently, the application section containing the dropdown and message input remained hidden and could not be interacted with.
+E       assert 'fail' == 'pass'
+E         
+E         - pass
+E         + fail
+
+tests/test_final_state.py:67: AssertionError
+___________________________ test_slack_message_sent ____________________________
+
+    def test_slack_message_sent():
+        # Allow some time for the message to be delivered
+        time.sleep(5)
+        trial_id = get_trial_id()
+        slack_token = os.environ.get("SLACK_TOKEN", "")
+        assert slack_token, "SLACK_TOKEN environment variable is missing."
+    
+        # First, get the list of channels to find the ID of #general
+        channels_result = subprocess.run([
+            "curl", "-sS", "-H", f"Authorization: Bearer {slack_token}",
+            "https://slack.com/api/conversations.list?limit=200&types=public_channel,private_channel"
+        ], capture_output=True, text=True)
+        assert channels_result.returncode == 0, f"curl conversations.list failed: {channels_result.stderr}"
+    
+        channels_data = json.loads(channels_result.stdout)
+        assert channels_data.get("ok"), f"Slack API error (conversations.list): {channels_data}"
+    
+        channel_id = None
+        for channel in channels_data.get("channels", []):
+            if channel["name"] == "general":
+                channel_id = channel["id"]
+                break
+    
+        assert channel_id is not None, "Could not find #general channel in Slack workspace."
+    
+        # Next, get the history of the channel to verify the message
+        history_result = subprocess.run([
+            "curl", "-sS", "-H", f"Authorization: Bearer {slack_token}",
+            f"https://slack.com/api/conversations.history?channel={channel_id}&limit=20"
+        ], capture_output=True, text=True)
+        assert history_result.returncode == 0, f"curl conversations.history failed: {history_result.stderr}"
+    
+        history_data = json.loads(history_result.stdout)
+>       assert history_data.get("ok"), f"Slack API error (conversations.history): {history_data}"
+E       AssertionError: Slack API error (conversations.history): {'ok': False, 'error': 'missing_scope', 'needed': 'channels:history,groups:history,mpim:history,im:history', 'provided': 'channels:read,groups:read,channels:manage,usergroups:write,chat:write,im:write,chat:write.customize,chat:write.public,im:read,users:read,users:read.email,team:read'}
+E       assert False
+E        +  where False = <built-in method get of dict object at 0x733affc22bc0>('ok')
+E        +    where <built-in method get of dict object at 0x733affc22bc0> = {'error': 'missing_scope', 'needed': 'channels:history,groups:history,mpim:history,im:history', 'ok': False, 'provided...groups:write,chat:write,im:write,chat:write.customize,chat:write.public,im:read,users:read,users:read.email,team:read'}.get
+
+tests/test_final_state.py:102: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_browser_interaction - AssertionError: ...
+FAILED tests/test_final_state.py::test_slack_message_sent - AssertionError: S...
+======================== 2 failed in 265.92s (0:04:25) =========================

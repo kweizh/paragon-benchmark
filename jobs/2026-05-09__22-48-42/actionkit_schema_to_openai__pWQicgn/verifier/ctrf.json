@@ -1,0 +1,41 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 1,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778338666.922388,
+            "stop": 1778338668.133599
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_convert_script_execution",
+                "status": "passed",
+                "duration": 1.1503425650298595,
+                "start": 1778338666.9340646,
+                "stop": 1778338668.0851192,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_tools_json_output",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0023209538776427507,
+                "start": 1778338668.0860596,
+                "stop": 1778338668.1333556,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_tools_json_output():\n        \"\"\"Priority 3: Verify the generated tools.json file matches the expected schema.\"\"\"\n        assert os.path.isfile(OUTPUT_FILE), f\"Output file {OUTPUT_FILE} was not created.\"\n    \n        with open(OUTPUT_FILE, \"r\") as f:\n            try:\n                tools = json.load(f)\n            except json.JSONDecodeError as e:\n                pytest.fail(f\"tools.json is not valid JSON: {e}\")\n    \n        assert isinstance(tools, list), \"Expected tools.json to contain a JSON array.\"\n        assert len(tools) > 0, \"Expected tools array to not be empty.\"\n    \n        for i, tool in enumerate(tools):\n            assert \"type\" in tool, f\"Item at index {i} is missing 'type' property.\"\n            assert tool[\"type\"] == \"function\", f\"Item at index {i} has type '{tool['type']}', expected 'function'.\"\n    \n            assert \"function\" in tool, f\"Item at index {i} is missing 'function' property.\"\n            func = tool[\"function\"]\n            assert isinstance(func, dict), f\"Item at index {i} 'function' property is not an object.\"\n    \n>           assert \"name\" in func, f\"Item at index {i} 'function' is missing 'name' property.\"\nE           AssertionError: Item at index 0 'function' is missing 'name' property.\nE           assert 'name' in {'parameters': {}}\n\ntests/test_final_state.py:43: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

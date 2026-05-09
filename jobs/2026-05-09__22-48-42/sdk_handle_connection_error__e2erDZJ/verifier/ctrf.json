@@ -1,0 +1,32 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 1,
+            "passed": 0,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778339426.6793163,
+            "stop": 1778339908.1959982
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_connection_error_handling",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 481.48906045709737,
+                "start": 1778339426.689805,
+                "stop": 1778339908.1956782,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\n\n    def test_connection_error_handling(start_app):\n        reason = \"The application should display an error message when the Paragon connection fails.\"\n        truth = \"\"\"Navigate to http://localhost:3000.\n    Override the `window.paragon.connect` method in the browser context to simulate a thrown error: `window.paragon = { connect: () => Promise.reject(new Error('Connection failed')) };`.\n    Click the 'Connect Salesforce' button on the page (id: connect-salesforce).\n    Verify that an element with the ID `connection-error` becomes visible and contains the exact text `Connection failed`.\"\"\"\n    \n        verifier = PochiVerifier()\n        result = verifier.verify(\n            reason=reason,\n            truth=truth,\n            use_browser_agent=True,\n            trajectory_dir=\"/logs/verifier/pochi/test_connection_error_handling\"\n        )\n>       assert result.status == \"pass\", f\"Browser verification failed: {result.reason}\"\nE       AssertionError: Browser verification failed: The React application at http://localhost:3000 failed to compile, displaying a \"Module parse failed\" error in ./src/index.js. This compilation error prevented the application from rendering its UI, meaning the '#connect-salesforce' button was not present on the page and could not be clicked. Since the application was in an error state and the required elements were not available, the verification steps could not be completed.\nE       assert 'fail' == 'pass'\nE         \nE         - pass\nE         + fail\n\ntests/test_final_state.py:58: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

@@ -1,0 +1,71 @@
+downloading uv 0.9.7 x86_64-unknown-linux-gnu
+no checksums to verify
+installing to /root/.local/bin
+  uv
+  uvx
+everything's installed!
+
+To add $HOME/.local/bin to your PATH, either restart your shell or run:
+
+    source $HOME/.local/bin/env (sh, bash, zsh)
+    source $HOME/.local/bin/env.fish (fish)
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 104ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 1 item
+
+tests/test_final_state.py F                                              [100%]
+
+=================================== FAILURES ===================================
+_______________________ test_headless_connection_trigger _______________________
+
+start_app = None
+
+    def test_headless_connection_trigger(start_app):
+        reason = "The application should have a 'Connect Slack' button that triggers the Paragon connection flow."
+        truth = "Navigate to http://localhost:3000. Verify that the 'Connect Slack' button (id: `connect-slack`) is present on the page. Verify that the status div (id: `status`) is present. Click the 'Connect Slack' button. Verify that a popup window or iframe pointing to Paragon's authentication portal is opened, demonstrating that `paragon.connect('slack')` was successfully triggered."
+    
+        verifier = PochiVerifier()
+        result = verifier.verify(
+            reason=reason,
+            truth=truth,
+            use_browser_agent=True,
+            trajectory_dir="/logs/verifier/pochi/test_headless_connection_trigger"
+        )
+>       assert result.status == "pass", f"Browser verification failed: {result.reason}"
+E       AssertionError: Browser verification failed: The 'Connect Slack' button (id: connect-slack) and status div (id: status) were present on the page. However, clicking the button did not result in the Paragon connection flow being opened. The status div displayed 'Failed' from the start and did not change. Investigation via the browser console revealed that the authentication failed with the error: 'Failed to authenticate user with Paragon: JWT token provided has expired.' As a result, the Paragon iframe remained hidden (display: none) and was never visible to the user, failing the verification step.
+E       assert 'fail' == 'pass'
+E         
+E         - pass
+E         + fail
+
+tests/test_final_state.py:64: AssertionError
+---------------------------- Captured stdout setup -----------------------------
+
+up to date, audited 98 packages in 934ms
+
+16 packages are looking for funding
+  run `npm fund` for details
+
+1 moderate severity vulnerability
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+
+> paragon-headless-connection@1.0.0 build
+> npx esbuild src/client.js --bundle --outfile=public/bundle.js
+
+---------------------------- Captured stderr setup -----------------------------
+
+  public/bundle.js  302.3kb
+
+⚡ Done in 107ms
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_headless_connection_trigger - Assertio...
+======================== 1 failed in 429.97s (0:07:09) =========================

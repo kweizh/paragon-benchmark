@@ -1,0 +1,50 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 2,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778338281.1064463,
+            "stop": 1778338281.132543
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_script_execution_success",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0006548131350427866,
+                "start": 1778338281.1159978,
+                "stop": 1778338281.1307228,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_script_execution_success():\n        \"\"\"Priority 1: Use subprocess to run the script and verify it exits cleanly without crashing.\"\"\"\n        env = os.environ.copy()\n>       env[\"PROJECT_ID\"] = env[\"PARAGON_PROJECT_ID\"]\n                            ^^^^^^^^^^^^^^^^^^^^^^^^^\nE       KeyError: 'PARAGON_PROJECT_ID'\n\ntests/test_final_state.py:12: KeyError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_error_log_exists",
+                "status": "passed",
+                "duration": 0.00048312824219465256,
+                "start": 1778338281.1309886,
+                "stop": 1778338281.1316123,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_error_log_contents",
+                "status": "passed",
+                "duration": 0.00044906092807650566,
+                "start": 1778338281.1317856,
+                "stop": 1778338281.1323965,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}
