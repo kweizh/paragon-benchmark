@@ -1,0 +1,50 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 2,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778425484.6817634,
+            "stop": 1778425487.0327244
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_script_execution",
+                "status": "passed",
+                "duration": 1.0481475840788335,
+                "start": 1778425484.6942217,
+                "stop": 1778425485.7426496,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_log_file_exists",
+                "status": "passed",
+                "duration": 0.0004961518570780754,
+                "start": 1778425485.7429142,
+                "stop": 1778425485.743578,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_slack_message_sent",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 1.2721147949341685,
+                "start": 1778425485.7437856,
+                "stop": 1778425487.0325217,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_slack_message_sent():\n        trial_id = get_trial_id()\n        slack_token = os.environ.get(\"SLACK_TOKEN\")\n        assert slack_token is not None, \"SLACK_TOKEN environment variable not set.\"\n    \n        # 1. Get channel list to find the ID of #general\n        list_result = subprocess.run([\n            \"curl\", \"-sS\", \"-H\", f\"Authorization: Bearer {slack_token}\",\n            \"https://slack.com/api/conversations.list?limit=200&types=public_channel,private_channel\"\n        ], capture_output=True, text=True)\n        assert list_result.returncode == 0, f\"curl conversations.list failed: {list_result.stderr}\"\n    \n        list_data = json.loads(list_result.stdout)\n        assert list_data.get(\"ok\"), f\"Slack API error: {list_data}\"\n    \n        channels = list_data.get(\"channels\", [])\n        channel_id = None\n        for c in channels:\n            if c[\"name\"] == TARGET_CHANNEL_NAME:\n                channel_id = c[\"id\"]\n                break\n    \n        assert channel_id is not None, f\"Channel #{TARGET_CHANNEL_NAME} not found.\"\n    \n        # 2. Get channel history to find the message\n        history_result = subprocess.run([\n            \"curl\", \"-sS\", \"-H\", f\"Authorization: Bearer {slack_token}\",\n            f\"https://slack.com/api/conversations.history?channel={channel_id}&limit=100\"\n        ], capture_output=True, text=True)\n        assert history_result.returncode == 0, f\"curl conversations.history failed: {history_result.stderr}\"\n    \n        history_data = json.loads(history_result.stdout)\n>       assert history_data.get(\"ok\"), f\"Slack API error: {history_data}\"\nE       AssertionError: Slack API error: {'ok': False, 'error': 'missing_scope', 'needed': 'channels:history,groups:history,mpim:history,im:history', 'provided': 'channels:read,groups:read,channels:manage,usergroups:write,chat:write,im:write,chat:write.customize,chat:write.public,im:read,users:read,users:read.email,team:read'}\nE       assert False\nE        +  where False = <built-in method get of dict object at 0x7c0d50f29680>('ok')\nE        +    where <built-in method get of dict object at 0x7c0d50f29680> = {'error': 'missing_scope', 'needed': 'channels:history,groups:history,mpim:history,im:history', 'ok': False, 'provided...groups:write,chat:write,im:write,chat:write.customize,chat:write.public,im:read,users:read,users:read.email,team:read'}.get\n\ntests/test_final_state.py:62: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

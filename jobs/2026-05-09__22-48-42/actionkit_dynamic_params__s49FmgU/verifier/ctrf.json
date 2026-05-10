@@ -1,0 +1,68 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 5,
+            "passed": 4,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778425824.2871323,
+            "stop": 1778425825.698982
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_script_exists",
+                "status": "passed",
+                "duration": 0.00047774985432624817,
+                "start": 1778425824.3008015,
+                "stop": 1778425824.301482,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_reads_trail_id",
+                "status": "passed",
+                "duration": 0.00042721000500023365,
+                "start": 1778425824.3016696,
+                "stop": 1778425824.3022285,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_log_file_exists",
+                "status": "passed",
+                "duration": 0.0003571270499378443,
+                "start": 1778425824.302396,
+                "stop": 1778425824.3028743,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_slack_message_sent",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.509589672088623,
+                "start": 1778425824.3030372,
+                "stop": 1778425824.8596563,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_slack_message_sent():\n        trail_id = get_trail_id()\n        channel_name = f\"{CHANNEL_BASENAME}-{trail_id}\"\n        slack_token = os.environ.get(\"SLACK_TOKEN\")\n        assert slack_token, \"SLACK_TOKEN environment variable is not set.\"\n    \n        # 1. Get channel ID\n        result = subprocess.run([\n            \"curl\", \"-sS\", \"-H\", f\"Authorization: Bearer {slack_token}\",\n            \"https://slack.com/api/conversations.list?limit=200&types=public_channel,private_channel\"\n        ], capture_output=True, text=True)\n        assert result.returncode == 0, f\"curl conversations.list failed: {result.stderr}\"\n        data = json.loads(result.stdout)\n        assert data.get(\"ok\"), f\"Slack API error: {data}\"\n    \n        channels = data.get(\"channels\", [])\n        channel_id = None\n        for c in channels:\n            if c[\"name\"] == channel_name:\n                channel_id = c[\"id\"]\n                break\n    \n>       assert channel_id is not None, f\"Expected channel '{channel_name}' not found in Slack workspace.\"\nE       AssertionError: Expected channel 'test-channel-actionkit_dynamic_params__s49FmgU' not found in Slack workspace.\nE       assert None is not None\n\ntests/test_final_state.py:49: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_cleanup_slack_channel",
+                "status": "passed",
+                "duration": 0.8386432658880949,
+                "start": 1778425824.8599517,
+                "stop": 1778425825.6988027,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

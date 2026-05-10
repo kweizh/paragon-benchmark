@@ -16,9 +16,10 @@ Paragon's ActionKit API allows you to execute 3rd-party actions programmatically
 
 ## Implementation Guide
 1. Read the `trail_id` from `/logs/artifacts/trial_id`.
-2. Read `PARAGON_PROJECT_ID`, `PARAGON_SIGNING_KEY` and `PARAGON_USER_TOKEN` from environment variables.
-3. Construct the fetch request to the ActionKit API.
-4. Execute the script using `node /home/user/project/send_message.js` and save the output to `/home/user/project/output.log`.
+2. Use slack api to create the channel before sending message.
+3. Read `PARAGON_PROJECT_ID`, `PARAGON_SIGNING_KEY` and `PARAGON_USER_TOKEN` from environment variables.
+4. Construct the fetch request to the ActionKit API.
+5. Execute the script using `node /home/user/project/send_message.js` and save the output to `/home/user/project/output.log`.
 
 ## Constraints
 - Project path: `/home/user/project`

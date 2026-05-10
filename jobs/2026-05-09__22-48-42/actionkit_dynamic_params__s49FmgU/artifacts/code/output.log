@@ -1,0 +1,4 @@
+Create Channel Status: 400
+Create Channel Body: {"message":"Integration not enabled for user.","code":"11002","status":400,"meta":{"integrationId":"3bdec4d7-3b5a-46c5-b0ac-8994c78c6865","projectId":"REDACTED","personaId":"434b8b40-98c8-45d0-9dcd-adc31d9d9e77"}}
+ActionKit Status: 402
+ActionKit Body: {"message":"ActionKit is not enabled on your account. Contact sales@useparagon.com to add ActionKit to your account.","code":"10202","status":402,"meta":{"featureName":"actionkit","plan":"connect_trial","projectId":"REDACTED","subscriptionId":"cab9be65-3e2e-4c85-b5ab-cb3f80cb1307"}}
