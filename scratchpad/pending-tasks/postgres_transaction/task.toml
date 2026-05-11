@@ -1,0 +1,36 @@
+version = "1.0"
+
+[metadata]
+name = "postgres_transaction"
+description = "Execute multiple queries in a transaction using Paragon Proxy API for Postgres"
+
+[environment]
+build_timeout_sec = 600
+cpus = 4
+memory_mb = 8192
+storage_mb = 10240
+gpus = 0
+allow_internet = true
+mcp_servers = []
+
+[environment.env]
+POCHI_LOG = "debug"
+POCHI_API_KEY = "${POCHI_API_KEY}"
+PARAGON_PROJECT_ID = "${PARAGON_PROJECT_ID}"
+PARAGON_USER_TOKEN = "${PARAGON_USER_TOKEN}"
+POSTGRES_URL = "${POSTGRES_URL}"
+
+[agent]
+timeout_sec = 600
+
+[verifier]
+timeout_sec = 600
+
+[verifier.env]
+POCHI_LOG = "debug"
+POCHI_API_KEY = "${POCHI_API_KEY}"
+PARAGON_PROJECT_ID = "${PARAGON_PROJECT_ID}"
+PARAGON_USER_TOKEN = "${PARAGON_USER_TOKEN}"
+POSTGRES_URL = "${POSTGRES_URL}"
+
+[solution.env]
