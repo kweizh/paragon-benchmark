@@ -1,0 +1,63 @@
+downloading uv 0.9.7 x86_64-unknown-linux-gnu
+no checksums to verify
+installing to /root/.local/bin
+  uv
+  uvx
+everything's installed!
+
+To add $HOME/.local/bin to your PATH, either restart your shell or run:
+
+    source $HOME/.local/bin/env (sh, bash, zsh)
+    source $HOME/.local/bin/env.fish (fish)
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 50ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 3 items
+
+tests/test_final_state.py ..F                                            [100%]
+
+=================================== FAILURES ===================================
+______________________ test_member_deleted_via_proxy_api _______________________
+
+    def test_member_deleted_via_proxy_api():
+        """Use the Paragon Proxy API to verify the member was deleted (should return 404)."""
+        project_id = os.environ.get("PARAGON_PROJECT_ID")
+        user_token = os.environ.get("PARAGON_USER_TOKEN")
+        list_address = os.environ.get("MAILGUN_LIST_ADDRESS")
+        member_address = os.environ.get("MAILGUN_MEMBER_ADDRESS")
+    
+        assert project_id, "PARAGON_PROJECT_ID is not set in environment."
+        assert user_token, "PARAGON_USER_TOKEN is not set in environment."
+        assert list_address, "MAILGUN_LIST_ADDRESS is not set in environment."
+        assert member_address, "MAILGUN_MEMBER_ADDRESS is not set in environment."
+    
+        proxy_url = f"https://proxy.useparagon.com/projects/{project_id}/sdk/proxy/mailgun"
+        target_url = f"https://api.mailgun.net/v3/lists/{list_address}/members/{member_address}"
+    
+        # Use curl to get the HTTP status code
+        result = subprocess.run([
+            "curl", "-s", "-o", "/dev/null", "-w", "%{http_code}",
+            "-H", f"Authorization: Bearer {user_token}",
+            "-H", f"X-Paragon-Proxy-Url: {target_url}",
+            proxy_url
+        ], capture_output=True, text=True)
+    
+        status_code = result.stdout.strip()
+>       assert status_code == "404", f"Expected HTTP status 404 (Not Found) for deleted member, but got {status_code}."
+E       AssertionError: Expected HTTP status 404 (Not Found) for deleted member, but got 403.
+E       assert '403' == '404'
+E         
+E         - 404
+E         + 403
+
+tests/test_final_state.py:53: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_script_execution
+PASSED tests/test_final_state.py::test_output_file_exists
+FAILED tests/test_final_state.py::test_member_deleted_via_proxy_api - Asserti...
+========================= 1 failed, 2 passed in 1.13s ==========================

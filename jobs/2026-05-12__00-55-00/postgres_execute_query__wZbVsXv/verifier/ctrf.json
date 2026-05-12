@@ -1,0 +1,44 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 0,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778519173.1957126,
+            "stop": 1778519173.7955801
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_script_execution",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.5621607387438416,
+                "start": 1778519173.2145224,
+                "stop": 1778519173.792848,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_script_execution():\n        \"\"\"Priority 1: Run the script and verify it executes without errors.\"\"\"\n        result = subprocess.run(\n            [\"node\", \"index.js\"],\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True\n        )\n>       assert result.returncode == 0, f\"Script execution failed: {result.stderr}\"\nE       AssertionError: Script execution failed: Error details: {\nE           \"statusCode\": 404,\nE           \"message\": \"Cannot GET /projects/REDACTED/integrations\",\nE           \"error\": \"Not Found\"\nE         }\nE         \nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['node', 'index.js'], returncode=1, stdout='Fetching connected integrations...\\n', stderr='Error...\\n  \"message\": \"Cannot GET /projects/REDACTED/integrations\",\\n  \"error\": \"Not Found\"\\n}\\n').returncode\n\ntests/test_final_state.py:17: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_result_file_exists_and_contains_expected_data",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0006080311723053455,
+                "start": 1778519173.7930918,
+                "stop": 1778519173.7954059,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_result_file_exists_and_contains_expected_data():\n        \"\"\"Priority 3: Check the generated output file.\"\"\"\n>       assert os.path.isfile(RESULT_FILE), f\"Result file not found at {RESULT_FILE}\"\nE       AssertionError: Result file not found at /home/user/project/result.json\nE       assert False\nE        +  where False = <function isfile at 0x7a2df819c220>('/home/user/project/result.json')\nE        +    where <function isfile at 0x7a2df819c220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:21: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

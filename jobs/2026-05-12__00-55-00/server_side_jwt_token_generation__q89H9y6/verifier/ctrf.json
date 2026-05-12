@@ -1,0 +1,41 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 1,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778519687.085616,
+            "stop": 1778519835.9398365
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_jwt_generation",
+                "status": "passed",
+                "duration": 5.737771463114768,
+                "start": 1778519687.1166668,
+                "stop": 1778519692.8550787,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_frontend_initialization",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 143.0660961009562,
+                "start": 1778519692.8555107,
+                "stop": 1778519835.9395704,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\n\n    def test_frontend_initialization(start_app):\n        \"\"\"Priority 2: Browser verification to check SDK initialization.\"\"\"\n        reason = \"The frontend should fetch the JWT and use it to initialize the Paragon SDK, then display a success message.\"\n        truth = \"Navigate to http://localhost:3000. Wait for the page to load and authenticate. Verify that the text 'Paragon SDK Initialized' appears on the page.\"\n    \n        verifier = PochiVerifier()\n        result = verifier.verify(\n            reason=reason,\n            truth=truth,\n            use_browser_agent=True,\n            trajectory_dir=\"/logs/verifier/pochi/test_frontend_initialization\"\n        )\n>       assert result.status == \"pass\", f\"Browser verification failed: {result.reason}\"\nE       AssertionError: Browser verification failed: The text 'Paragon SDK Initialized' did not appear on the page at http://localhost:3000. Instead, the page displayed 'Error: paragon is not defined', indicating that the Paragon SDK failed to initialize correctly.\nE       assert 'fail' == 'pass'\nE         \nE         - pass\nE         + fail\n\ntests/test_final_state.py:90: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

@@ -1,0 +1,44 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 0,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778519101.8267689,
+            "stop": 1778519101.8556116
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_schema_file_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0007539847865700722,
+                "start": 1778519101.8377116,
+                "stop": 1778519101.8530552,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_schema_file_exists():\n>       assert os.path.isfile(SCHEMA_FILE), f\"The file {SCHEMA_FILE} was not created.\"\nE       AssertionError: The file /home/user/paragon-postgres/schema.json was not created.\nE       assert False\nE        +  where False = <function isfile at 0x769d048d4220>('/home/user/paragon-postgres/schema.json')\nE        +    where <function isfile at 0x769d048d4220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:9: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_schema_file_is_valid_json",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0005371496081352234,
+                "start": 1778519101.8533182,
+                "stop": 1778519101.855414,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_schema_file_is_valid_json():\n>       with open(SCHEMA_FILE, \"r\") as f:\n             ^^^^^^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/paragon-postgres/schema.json'\n\ntests/test_final_state.py:12: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            }
+        ]
+    }
+}

@@ -1,0 +1,57 @@
+{
+    "id": "fe5848e0-8541-46d5-b59c-39d573275a12",
+    "started_at": "2026-05-12T00:55:04.824342",
+    "finished_at": "2026-05-12T01:21:09.655196",
+    "n_total_trials": 18,
+    "stats": {
+        "n_trials": 18,
+        "n_errors": 6,
+        "evals": {
+            "pochi__gemini-3-flash__tasks": {
+                "n_trials": 16,
+                "n_errors": 6,
+                "metrics": [
+                    {
+                        "mean": 0.1111111111111111
+                    }
+                ],
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "mailgun_get_domains__hoaCqeb",
+                            "postgres_delete_row__guJNDpu"
+                        ],
+                        "0.0": [
+                            "postgres_execute_query__wZbVsXv",
+                            "mailgun_add_member__ARFXKU4",
+                            "mailgun_create_webhook__X622yU9",
+                            "mailgun_create_mailing_list__Hj2ZfNB",
+                            "mailgun_get_stats__x9LNSey",
+                            "postgres_get_schema__ndxSxYJ",
+                            "postgres_insert_row__dLRZpa3",
+                            "postgres_list_tables__TrLmQVL",
+                            "postgres_proxy_api_query__yupzGWq",
+                            "mailgun_delete_member__GoegvRv",
+                            "postgres_create_table__JmiTjcA",
+                            "mailgun_update_member__je2KGWM",
+                            "mailgun_get_events__ZSr6R4s",
+                            "server_side_jwt_token_generation__q89H9y6"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "AgentTimeoutError": [
+                        "mailgun_get_domains__hoaCqeb",
+                        "postgres_execute_query__wZbVsXv",
+                        "postgres_insert_row__dLRZpa3",
+                        "postgres_create_table__JmiTjcA"
+                    ],
+                    "NonZeroAgentExitCodeError": [
+                        "postgres_update_row__JSdrWxM",
+                        "mailgun_send_email__qgNtajB"
+                    ]
+                }
+            }
+        }
+    }
+}

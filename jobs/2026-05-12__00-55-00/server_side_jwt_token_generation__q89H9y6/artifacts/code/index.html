@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paragon SDK Initialization</title>
+</head>
+<body>
+    <div id="status">Initializing Paragon SDK...</div>
+
+    <!-- Paragon SDK -->
+    <script src="https://cdn.useparagon.com/connect.js"></script>
+    
+    <script>
+        async function initParagon() {
+            try {
+                const response = await fetch('/auth/token');
+                const data = await response.json();
+                
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+
+                const { token, projectId } = data;
+
+                // Initialize Paragon SDK
+                // Note: The global object is 'paragon' after loading the script
+                await paragon.authenticate(projectId, token);
+                
+                document.getElementById('status').innerText = 'Paragon SDK Initialized';
+            } catch (error) {
+                console.error('Error initializing Paragon:', error);
+                document.getElementById('status').innerText = 'Error: ' + error.message;
+            }
+        }
+
+        initParagon();
+    </script>
+</body>
+</html>

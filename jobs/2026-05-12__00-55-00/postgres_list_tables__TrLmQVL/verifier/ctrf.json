@@ -1,0 +1,53 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 1,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778519616.91272,
+            "stop": 1778519617.9065394
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_script_exists",
+                "status": "passed",
+                "duration": 0.0005409661680459976,
+                "start": 1778519616.9226537,
+                "stop": 1778519616.9234364,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_execution",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.9654565183445811,
+                "start": 1778519616.9236505,
+                "stop": 1778519617.9036574,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_script_execution():\n        \"\"\"Priority 3 fallback: Run the script and check if it succeeds.\"\"\"\n        result = subprocess.run(\n            [\"node\", \"list_tables.js\"],\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True\n        )\n>       assert result.returncode == 0, f\"Script failed to execute: {result.stderr}\"\nE       AssertionError: Script failed to execute: Error listing tables: 403 { statusCode: 403, message: 'Forbidden resource', error: 'Forbidden' }\nE         \nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['node', 'list_tables.js'], returncode=1, stdout='', stderr=\"Error listing tables: 403 { statusCode: 403, message: 'Forbidden resource', error: 'Forbidden' }\\n\").returncode\n\ntests/test_final_state.py:22: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_result_file_exists_and_is_valid_json",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0005712350830435753,
+                "start": 1778519617.9039063,
+                "stop": 1778519617.9063756,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_result_file_exists_and_is_valid_json():\n        \"\"\"Priority 3 fallback: Check if tables.json exists and is valid JSON.\"\"\"\n>       assert os.path.isfile(LOG_FILE), f\"Log file {LOG_FILE} does not exist.\"\nE       AssertionError: Log file /home/user/project/tables.json does not exist.\nE       assert False\nE        +  where False = <function isfile at 0x7f3102440220>('/home/user/project/tables.json')\nE        +    where <function isfile at 0x7f3102440220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:26: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

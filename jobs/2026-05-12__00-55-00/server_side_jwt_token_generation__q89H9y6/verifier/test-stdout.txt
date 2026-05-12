@@ -1,0 +1,61 @@
+downloading uv 0.9.7 x86_64-unknown-linux-gnu
+no checksums to verify
+installing to /root/.local/bin
+  uv
+  uvx
+everything's installed!
+
+To add $HOME/.local/bin to your PATH, either restart your shell or run:
+
+    source $HOME/.local/bin/env (sh, bash, zsh)
+    source $HOME/.local/bin/env.fish (fish)
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 18ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 2 items
+
+tests/test_final_state.py .F                                             [100%]
+
+=================================== FAILURES ===================================
+_________________________ test_frontend_initialization _________________________
+
+start_app = None
+
+    def test_frontend_initialization(start_app):
+        """Priority 2: Browser verification to check SDK initialization."""
+        reason = "The frontend should fetch the JWT and use it to initialize the Paragon SDK, then display a success message."
+        truth = "Navigate to http://localhost:3000. Wait for the page to load and authenticate. Verify that the text 'Paragon SDK Initialized' appears on the page."
+    
+        verifier = PochiVerifier()
+        result = verifier.verify(
+            reason=reason,
+            truth=truth,
+            use_browser_agent=True,
+            trajectory_dir="/logs/verifier/pochi/test_frontend_initialization"
+        )
+>       assert result.status == "pass", f"Browser verification failed: {result.reason}"
+E       AssertionError: Browser verification failed: The text 'Paragon SDK Initialized' did not appear on the page at http://localhost:3000. Instead, the page displayed 'Error: paragon is not defined', indicating that the Paragon SDK failed to initialize correctly.
+E       assert 'fail' == 'pass'
+E         
+E         - pass
+E         + fail
+
+tests/test_final_state.py:90: AssertionError
+==================================== PASSES ====================================
+_____________________________ test_jwt_generation ______________________________
+---------------------------- Captured stdout setup -----------------------------
+
+up to date, audited 81 packages in 606ms
+
+24 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_jwt_generation
+FAILED tests/test_final_state.py::test_frontend_initialization - AssertionErr...
+=================== 1 failed, 1 passed in 148.85s (0:02:28) ====================

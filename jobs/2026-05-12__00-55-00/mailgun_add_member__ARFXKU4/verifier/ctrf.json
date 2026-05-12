@@ -1,0 +1,44 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 0,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778518629.0380404,
+            "stop": 1778518629.894663
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_script_exists_and_log_contains_200",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0006864583119750023,
+                "start": 1778518629.574363,
+                "stop": 1778518629.5906963,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_script_exists_and_log_contains_200():\n        \"\"\"Verify that the script exists and the log file contains 200.\"\"\"\n        script_path = os.path.join(PROJECT_DIR, \"add_member.js\")\n        assert os.path.isfile(script_path), f\"Script not found at {script_path}\"\n    \n        log_path = os.path.join(PROJECT_DIR, \"output.log\")\n>       assert os.path.isfile(log_path), f\"Log file not found at {log_path}\"\nE       AssertionError: Log file not found at /home/user/project/output.log\nE       assert False\nE        +  where False = <function isfile at 0x7375f0950220>('/home/user/project/output.log')\nE        +    where <function isfile at 0x7375f0950220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:16: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_member_exists_in_mailgun",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.17587821371853352,
+                "start": 1778518629.5909185,
+                "stop": 1778518629.8944712,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_member_exists_in_mailgun():\n        \"\"\"Verify that the member was actually added to the Mailgun list via Paragon Proxy API.\"\"\"\n        project_id = os.environ.get(\"PARAGON_PROJECT_ID\")\n        user_token = os.environ.get(\"PARAGON_USER_TOKEN\")\n        list_address = os.environ.get(\"MAILGUN_LIST_ADDRESS\")\n        member_email = os.environ.get(\"MEMBER_EMAIL\")\n    \n        assert project_id, \"PARAGON_PROJECT_ID is not set\"\n        assert user_token, \"PARAGON_USER_TOKEN is not set\"\n        assert list_address, \"MAILGUN_LIST_ADDRESS is not set\"\n        assert member_email, \"MEMBER_EMAIL is not set\"\n    \n        proxy_url = f\"https://api.mailgun.net/v3/lists/{list_address}/members/{member_email}\"\n        paragon_url = f\"https://proxy.useparagon.com/projects/{project_id}/sdk/proxy/mailgun\"\n    \n        req = urllib.request.Request(paragon_url, method=\"GET\")\n        req.add_header(\"Authorization\", f\"Bearer {user_token}\")\n        req.add_header(\"X-Paragon-Proxy-Url\", proxy_url)\n    \n        try:\n>           with urllib.request.urlopen(req) as response:\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntests/test_final_state.py:43: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nusr/lib/python3.12/urllib/request.py:215: in urlopen\n    return opener.open(url, data, timeout)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nusr/lib/python3.12/urllib/request.py:521: in open\n    response = meth(req, response)\n               ^^^^^^^^^^^^^^^^^^^\nusr/lib/python3.12/urllib/request.py:630: in http_response\n    response = self.parent.error(\nusr/lib/python3.12/urllib/request.py:559: in error\n    return self._call_chain(*args)\n           ^^^^^^^^^^^^^^^^^^^^^^^\nusr/lib/python3.12/urllib/request.py:492: in _call_chain\n    result = func(*args)\n             ^^^^^^^^^^^\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <urllib.request.HTTPDefaultErrorHandler object at 0x7375eff90470>\nreq = <urllib.request.Request object at 0x7375eff92210>\nfp = <http.client.HTTPResponse object at 0x7375f043c430>, code = 403\nmsg = 'Forbidden', hdrs = <http.client.HTTPMessage object at 0x7375f009afc0>\n\n    def http_error_default(self, req, fp, code, msg, hdrs):\n>       raise HTTPError(req.full_url, code, msg, hdrs, fp)\nE       urllib.error.HTTPError: HTTP Error 403: Forbidden\n\nusr/lib/python3.12/urllib/request.py:639: HTTPError\n\nDuring handling of the above exception, another exception occurred:\n\n    def test_member_exists_in_mailgun():\n        \"\"\"Verify that the member was actually added to the Mailgun list via Paragon Proxy API.\"\"\"\n        project_id = os.environ.get(\"PARAGON_PROJECT_ID\")\n        user_token = os.environ.get(\"PARAGON_USER_TOKEN\")\n        list_address = os.environ.get(\"MAILGUN_LIST_ADDRESS\")\n        member_email = os.environ.get(\"MEMBER_EMAIL\")\n    \n        assert project_id, \"PARAGON_PROJECT_ID is not set\"\n        assert user_token, \"PARAGON_USER_TOKEN is not set\"\n        assert list_address, \"MAILGUN_LIST_ADDRESS is not set\"\n        assert member_email, \"MEMBER_EMAIL is not set\"\n    \n        proxy_url = f\"https://api.mailgun.net/v3/lists/{list_address}/members/{member_email}\"\n        paragon_url = f\"https://proxy.useparagon.com/projects/{project_id}/sdk/proxy/mailgun\"\n    \n        req = urllib.request.Request(paragon_url, method=\"GET\")\n        req.add_header(\"Authorization\", f\"Bearer {user_token}\")\n        req.add_header(\"X-Paragon-Proxy-Url\", proxy_url)\n    \n        try:\n            with urllib.request.urlopen(req) as response:\n                status_code = response.getcode()\n                body = response.read().decode('utf-8')\n                assert status_code == 200, f\"Expected 200 OK from Mailgun, got {status_code}\"\n    \n                data = json.loads(body)\n                assert \"member\" in data, f\"Expected 'member' in response, got: {data}\"\n                assert data[\"member\"][\"address\"] == member_email, f\"Expected member address {member_email}, got: {data['member'].get('address')}\"\n        except urllib.error.HTTPError as e:\n>           pytest.fail(f\"Failed to fetch member from Mailgun: {e.code} {e.reason} - {e.read().decode('utf-8')}\")\nE           Failed: Failed to fetch member from Mailgun: 403 Forbidden - error code: 1010\n\ntests/test_final_state.py:52: Failed",
+                "message": "The test failed in the call phase"
+            }
+        ]
+    }
+}

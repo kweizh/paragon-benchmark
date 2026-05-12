@@ -1,0 +1,99 @@
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo postgres_proxy_api_query__yupzGWq > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Execute a Custom Query for Postgres via Paragon Proxy API
+
+## Background
+Paragon's Proxy API allows you to make direct, authenticated requests to third-party endpoints. For database integrations like PostgreSQL, you can use the Proxy API to execute custom queries directly.
+
+## Requirements
+- Write a Node.js script `query.js` in `/home/user/project` that uses the Paragon Proxy API to execute a custom query for Postgres.
+- The script should generate a Paragon User Token (JWT) using the provided `PARAGON_SIGNING_KEY`.
+- The JWT must include `sub` (set to `test-user`) and `iat` (issued at time).
+- Use the generated JWT to authenticate a request to the Paragon Proxy API for the `postgres` integration.
+- The proxy request should target the `/query` endpoint by setting the `X-Paragon-Proxy-Url` header to `/query`.
+- The request must be a `POST` request to `https://proxy.useparagon.com/projects/${PARAGON_PROJECT_ID}/sdk/proxy/postgres`.
+- The request body should be a JSON object containing the `query` field. Use the query: `SELECT * FROM users WHERE email = 'test@example.com';`.
+- Save the JSON response from the proxy request to `/home/user/project/output.json`.
+
+## Implementation Guide
+1. Initialize a Node.js project in `/home/user/project`.
+2. Install `jsonwebtoken` to generate the JWT.
+3. Create `query.js` to sign the JWT using `PARAGON_SIGNING_KEY`.
+4. Make a POST request to `https://proxy.useparagon.com/projects/${process.env.PARAGON_PROJECT_ID}/sdk/proxy/postgres`.
+5. Include the headers:
+   - `Authorization: Bearer <YOUR_GENERATED_JWT>`
+   - `X-Paragon-Proxy-Url: /query`
+   - `Content-Type: application/json`
+6. Include the body: `JSON.stringify({ query: "SELECT * FROM users WHERE email = 'test@example.com';" })`.
+7. Write the response data to `output.json`.
+
+## Constraints
+- Project path: `/home/user/project`
+- Log file: `/home/user/project/output.json`
+- The environment variables `PARAGON_PROJECT_ID` and `PARAGON_SIGNING_KEY` will be available in the environment.
+
+## Integrations
+- Paragon
+- Postgres
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

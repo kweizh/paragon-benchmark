@@ -1,0 +1,56 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 0,
+            "failed": 3,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778518857.3161077,
+            "stop": 1778518858.3517609
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_script_execution",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.9914019401185215,
+                "start": 1778518857.3365571,
+                "stop": 1778518858.3461657,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_script_execution():\n        \"\"\"Run the user script and check if it exits with 0.\"\"\"\n        result = subprocess.run(\n            [\"node\", \"index.js\"],\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True\n        )\n>       assert result.returncode == 0, f\"Script execution failed. stdout: {result.stdout}, stderr: {result.stderr}\"\nE       AssertionError: Script execution failed. stdout: [2026-05-11T17:00:57.469Z] Fetching Mailgun stats from: https://proxy.useparagon.com/projects/REDACTED/sdk/proxy/mailgun/https://api.mailgun.net/v3/REDACTED/stats/total\nE         [2026-05-11T17:00:58.321Z] Error fetching stats: Request failed with status code 403\nE         [2026-05-11T17:00:58.321Z] Response data: {\"statusCode\":403,\"message\":\"Forbidden resource\",\"error\":\"Forbidden\"}\nE         [2026-05-11T17:00:58.321Z] Status: 403\nE         , stderr: \nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['node', 'index.js'], returncode=1, stdout='[2026-05-11T17:00:57.469Z] Fetching Mailgun stats fr...tusCode\":403,\"message\":\"Forbidden resource\",\"error\":\"Forbidden\"}\\n[2026-05-11T17:00:58.321Z] Status: 403\\n', stderr='').returncode\n\ntests/test_final_state.py:17: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_stats_json_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0007305932231247425,
+                "start": 1778518858.3464184,
+                "stop": 1778518858.3493028,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_stats_json_exists():\n        \"\"\"Verify that stats.json was created.\"\"\"\n>       assert os.path.isfile(STATS_FILE), f\"Expected file {STATS_FILE} does not exist.\"\nE       AssertionError: Expected file /home/user/project/stats.json does not exist.\nE       assert False\nE        +  where False = <function isfile at 0x70af4a354220>('/home/user/project/stats.json')\nE        +    where <function isfile at 0x70af4a354220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:21: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_stats_json_content",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00046814093366265297,
+                "start": 1778518858.3495173,
+                "stop": 1778518858.3515801,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_stats_json_content():\n        \"\"\"Verify that stats.json contains valid JSON with a 'stats' field.\"\"\"\n>       with open(STATS_FILE, \"r\") as f:\n             ^^^^^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/project/stats.json'\n\ntests/test_final_state.py:25: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            }
+        ]
+    }
+}

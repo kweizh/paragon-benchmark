@@ -1,0 +1,132 @@
+downloading uv 0.9.7 x86_64-unknown-linux-gnu
+no checksums to verify
+installing to /root/.local/bin
+  uv
+  uvx
+everything's installed!
+
+To add $HOME/.local/bin to your PATH, either restart your shell or run:
+
+    source $HOME/.local/bin/env (sh, bash, zsh)
+    source $HOME/.local/bin/env.fish (fish)
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 201ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 2 items
+
+tests/test_final_state.py FF                                             [100%]
+
+=================================== FAILURES ===================================
+___________________ test_script_exists_and_log_contains_200 ____________________
+
+    def test_script_exists_and_log_contains_200():
+        """Verify that the script exists and the log file contains 200."""
+        script_path = os.path.join(PROJECT_DIR, "add_member.js")
+        assert os.path.isfile(script_path), f"Script not found at {script_path}"
+    
+        log_path = os.path.join(PROJECT_DIR, "output.log")
+>       assert os.path.isfile(log_path), f"Log file not found at {log_path}"
+E       AssertionError: Log file not found at /home/user/project/output.log
+E       assert False
+E        +  where False = <function isfile at 0x7375f0950220>('/home/user/project/output.log')
+E        +    where <function isfile at 0x7375f0950220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:16: AssertionError
+________________________ test_member_exists_in_mailgun _________________________
+
+    def test_member_exists_in_mailgun():
+        """Verify that the member was actually added to the Mailgun list via Paragon Proxy API."""
+        project_id = os.environ.get("PARAGON_PROJECT_ID")
+        user_token = os.environ.get("PARAGON_USER_TOKEN")
+        list_address = os.environ.get("MAILGUN_LIST_ADDRESS")
+        member_email = os.environ.get("MEMBER_EMAIL")
+    
+        assert project_id, "PARAGON_PROJECT_ID is not set"
+        assert user_token, "PARAGON_USER_TOKEN is not set"
+        assert list_address, "MAILGUN_LIST_ADDRESS is not set"
+        assert member_email, "MEMBER_EMAIL is not set"
+    
+        proxy_url = f"https://api.mailgun.net/v3/lists/{list_address}/members/{member_email}"
+        paragon_url = f"https://proxy.useparagon.com/projects/{project_id}/sdk/proxy/mailgun"
+    
+        req = urllib.request.Request(paragon_url, method="GET")
+        req.add_header("Authorization", f"Bearer {user_token}")
+        req.add_header("X-Paragon-Proxy-Url", proxy_url)
+    
+        try:
+>           with urllib.request.urlopen(req) as response:
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_final_state.py:43: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/lib/python3.12/urllib/request.py:215: in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+usr/lib/python3.12/urllib/request.py:521: in open
+    response = meth(req, response)
+               ^^^^^^^^^^^^^^^^^^^
+usr/lib/python3.12/urllib/request.py:630: in http_response
+    response = self.parent.error(
+usr/lib/python3.12/urllib/request.py:559: in error
+    return self._call_chain(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+usr/lib/python3.12/urllib/request.py:492: in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <urllib.request.HTTPDefaultErrorHandler object at 0x7375eff90470>
+req = <urllib.request.Request object at 0x7375eff92210>
+fp = <http.client.HTTPResponse object at 0x7375f043c430>, code = 403
+msg = 'Forbidden', hdrs = <http.client.HTTPMessage object at 0x7375f009afc0>
+
+    def http_error_default(self, req, fp, code, msg, hdrs):
+>       raise HTTPError(req.full_url, code, msg, hdrs, fp)
+E       urllib.error.HTTPError: HTTP Error 403: Forbidden
+
+usr/lib/python3.12/urllib/request.py:639: HTTPError
+
+During handling of the above exception, another exception occurred:
+
+    def test_member_exists_in_mailgun():
+        """Verify that the member was actually added to the Mailgun list via Paragon Proxy API."""
+        project_id = os.environ.get("PARAGON_PROJECT_ID")
+        user_token = os.environ.get("PARAGON_USER_TOKEN")
+        list_address = os.environ.get("MAILGUN_LIST_ADDRESS")
+        member_email = os.environ.get("MEMBER_EMAIL")
+    
+        assert project_id, "PARAGON_PROJECT_ID is not set"
+        assert user_token, "PARAGON_USER_TOKEN is not set"
+        assert list_address, "MAILGUN_LIST_ADDRESS is not set"
+        assert member_email, "MEMBER_EMAIL is not set"
+    
+        proxy_url = f"https://api.mailgun.net/v3/lists/{list_address}/members/{member_email}"
+        paragon_url = f"https://proxy.useparagon.com/projects/{project_id}/sdk/proxy/mailgun"
+    
+        req = urllib.request.Request(paragon_url, method="GET")
+        req.add_header("Authorization", f"Bearer {user_token}")
+        req.add_header("X-Paragon-Proxy-Url", proxy_url)
+    
+        try:
+            with urllib.request.urlopen(req) as response:
+                status_code = response.getcode()
+                body = response.read().decode('utf-8')
+                assert status_code == 200, f"Expected 200 OK from Mailgun, got {status_code}"
+    
+                data = json.loads(body)
+                assert "member" in data, f"Expected 'member' in response, got: {data}"
+                assert data["member"]["address"] == member_email, f"Expected member address {member_email}, got: {data['member'].get('address')}"
+        except urllib.error.HTTPError as e:
+>           pytest.fail(f"Failed to fetch member from Mailgun: {e.code} {e.reason} - {e.read().decode('utf-8')}")
+E           Failed: Failed to fetch member from Mailgun: 403 Forbidden - error code: 1010
+
+tests/test_final_state.py:52: Failed
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_script_exists_and_log_contains_200 - A...
+FAILED tests/test_final_state.py::test_member_exists_in_mailgun - Failed: Fai...
+============================== 2 failed in 0.86s ===============================

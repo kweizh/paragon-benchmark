@@ -1,0 +1,56 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 0,
+            "failed": 3,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778519630.8841965,
+            "stop": 1778519632.2117946
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_script_execution",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 1.2979180859401822,
+                "start": 1778519630.8942466,
+                "stop": 1778519632.2069626,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_script_execution():\n        \"\"\"Priority 1: Run the user's script and verify it succeeds.\"\"\"\n        assert os.path.isfile(SCRIPT_FILE), f\"Script not found at {SCRIPT_FILE}\"\n    \n        result = subprocess.run(\n            [\"node\", \"fetch_events.js\"],\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True\n        )\n>       assert result.returncode == 0, f\"Script execution failed with error: {result.stderr}\\nOutput: {result.stdout}\"\nE       AssertionError: Script execution failed with error: HTTP error! Status: 403\nE         Response body: {\"statusCode\":403,\"message\":\"Forbidden resource\",\"error\":\"Forbidden\"}\nE         \nE         Output: Sending request to Paragon ActionKit for project REDACTED...\nE         \nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['node', 'fetch_events.js'], returncode=1, stdout='Sending request to Paragon ActionKit for proj...derr='HTTP error! Status: 403\\nResponse body: {\"statusCode\":403,\"message\":\"Forbidden resource\",\"error\":\"Forbidden\"}\\n').returncode\n\ntests/test_final_state.py:20: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_output_file_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0005534510128200054,
+                "start": 1778519632.2071943,
+                "stop": 1778519632.2095308,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_output_file_exists():\n        \"\"\"Priority 3: Verify the output file is created.\"\"\"\n>       assert os.path.isfile(OUTPUT_FILE), f\"Output file not found at {OUTPUT_FILE}\"\nE       AssertionError: Output file not found at /home/user/project/events.json\nE       assert False\nE        +  where False = <function isfile at 0x7b46f1928220>('/home/user/project/events.json')\nE        +    where <function isfile at 0x7b46f1928220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:24: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_output_file_contains_valid_json",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0004349597729742527,
+                "start": 1778519632.20972,
+                "stop": 1778519632.2116327,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_output_file_contains_valid_json():\n        \"\"\"Priority 3: Verify the output file contains valid JSON.\"\"\"\n>       with open(OUTPUT_FILE, \"r\") as f:\n             ^^^^^^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/project/events.json'\n\ntests/test_final_state.py:28: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            }
+        ]
+    }
+}

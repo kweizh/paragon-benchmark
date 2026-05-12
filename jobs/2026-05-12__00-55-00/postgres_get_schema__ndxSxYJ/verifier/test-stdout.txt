@@ -1,0 +1,46 @@
+downloading uv 0.9.7 x86_64-unknown-linux-gnu
+no checksums to verify
+installing to /root/.local/bin
+  uv
+  uvx
+everything's installed!
+
+To add $HOME/.local/bin to your PATH, either restart your shell or run:
+
+    source $HOME/.local/bin/env (sh, bash, zsh)
+    source $HOME/.local/bin/env.fish (fish)
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 146ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 2 items
+
+tests/test_final_state.py FF                                             [100%]
+
+=================================== FAILURES ===================================
+___________________________ test_schema_file_exists ____________________________
+
+    def test_schema_file_exists():
+>       assert os.path.isfile(SCHEMA_FILE), f"The file {SCHEMA_FILE} was not created."
+E       AssertionError: The file /home/user/paragon-postgres/schema.json was not created.
+E       assert False
+E        +  where False = <function isfile at 0x769d048d4220>('/home/user/paragon-postgres/schema.json')
+E        +    where <function isfile at 0x769d048d4220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:9: AssertionError
+________________________ test_schema_file_is_valid_json ________________________
+
+    def test_schema_file_is_valid_json():
+>       with open(SCHEMA_FILE, "r") as f:
+             ^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/paragon-postgres/schema.json'
+
+tests/test_final_state.py:12: FileNotFoundError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_schema_file_exists - AssertionError: T...
+FAILED tests/test_final_state.py::test_schema_file_is_valid_json - FileNotFou...
+============================== 2 failed in 0.03s ===============================

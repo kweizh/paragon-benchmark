@@ -1,0 +1,59 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 4,
+            "passed": 3,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778519419.844894,
+            "stop": 1778519420.844605
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_script_exists",
+                "status": "passed",
+                "duration": 0.000567321665585041,
+                "start": 1778519419.856407,
+                "stop": 1778519419.857215,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_content_for_proxy_url",
+                "status": "passed",
+                "duration": 0.00048809219151735306,
+                "start": 1778519419.8574436,
+                "stop": 1778519419.8580816,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_execution",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.9704031110741198,
+                "start": 1778519419.8582935,
+                "stop": 1778519420.8436017,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_script_execution():\n        \"\"\"Priority 3 fallback: Run the script and check if it succeeds.\"\"\"\n        result = subprocess.run(\n            [\"node\", \"query.js\"],\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True\n        )\n>       assert result.returncode == 0, f\"Script failed to execute: {result.stderr}\"\nE       AssertionError: Script failed to execute: Error executing query: { statusCode: 403, message: 'Forbidden resource', error: 'Forbidden' }\nE         \nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['node', 'query.js'], returncode=1, stdout='', stderr=\"Error executing query: { statusCode: 403, message: 'Forbidden resource', error: 'Forbidden' }\\n\").returncode\n\ntests/test_final_state.py:31: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_result_file_exists_and_is_valid_json",
+                "status": "passed",
+                "duration": 0.0004922631196677685,
+                "start": 1778519420.8438175,
+                "stop": 1778519420.8444436,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

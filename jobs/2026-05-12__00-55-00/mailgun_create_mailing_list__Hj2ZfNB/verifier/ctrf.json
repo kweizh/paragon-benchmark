@@ -1,0 +1,41 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 1,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778519079.0428421,
+            "stop": 1778519079.923428
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_output_file_exists_and_successful",
+                "status": "passed",
+                "duration": 0.0006076390855014324,
+                "start": 1778519079.05297,
+                "stop": 1778519079.0538075,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_mailing_list_created_via_proxy",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.8178859851323068,
+                "start": 1778519079.0540273,
+                "stop": 1778519079.9232075,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_mailing_list_created_via_proxy():\n        \"\"\"Priority 1: Use Paragon Proxy API via curl to verify the mailing list exists.\"\"\"\n        project_id = os.environ.get(\"PARAGON_PROJECT_ID\")\n        user_token = os.environ.get(\"PARAGON_USER_TOKEN\")\n        mailgun_domain = os.environ.get(\"MAILGUN_DOMAIN\")\n    \n        assert project_id, \"PARAGON_PROJECT_ID environment variable is missing.\"\n        assert user_token, \"PARAGON_USER_TOKEN environment variable is missing.\"\n        assert mailgun_domain, \"MAILGUN_DOMAIN environment variable is missing.\"\n    \n        list_address = f\"harbor-test-list@{mailgun_domain}\"\n        proxy_url = f\"https://proxy.useparagon.com/projects/{project_id}/sdk/proxy/mailgun/v3/lists/{list_address}\"\n    \n        # We use curl to make the request to the proxy API\n        curl_cmd = [\n            \"curl\", \"-s\", \"-o\", \"/dev/null\", \"-w\", \"%{http_code}\",\n            \"-H\", f\"Authorization: Bearer {user_token}\",\n            proxy_url\n        ]\n    \n        result = subprocess.run(curl_cmd, capture_output=True, text=True)\n        assert result.returncode == 0, f\"curl command failed: {result.stderr}\"\n    \n        http_code = result.stdout.strip()\n>       assert http_code == \"200\", f\"Expected HTTP 200 from Proxy API for the mailing list, got {http_code}. The mailing list may not have been created.\"\nE       AssertionError: Expected HTTP 200 from Proxy API for the mailing list, got 403. The mailing list may not have been created.\nE       assert '403' == '200'\nE         \nE         - 200\nE         + 403\n\ntests/test_final_state.py:46: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

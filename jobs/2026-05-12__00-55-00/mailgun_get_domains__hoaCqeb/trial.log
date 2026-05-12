@@ -1,0 +1,86 @@
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo mailgun_get_domains__hoaCqeb > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Fetch Mailgun Domains with Paragon ActionKit
+
+## Background
+Paragon ActionKit allows you to execute third-party actions programmatically. Your task is to fetch a list of domains from Mailgun using Paragon's ActionKit API.
+
+## Requirements
+- Create a Node.js script at `/home/user/app/index.js`.
+- The script must use `process.env.PARAGON_PROJECT_ID` and `process.env.PARAGON_USER_TOKEN` for authentication.
+- Use the `fetch` API to make a request to Paragon ActionKit to execute the Mailgun action for fetching domains.
+- The script must write the resulting JSON data to `/home/user/app/output.json`.
+
+## Implementation Guide
+1. Initialize a Node.js project in `/home/user/app`.
+2. Write `index.js` to make a POST request to `https://actionkit.useparagon.com/projects/${process.env.PARAGON_PROJECT_ID}/actions`.
+3. The body should specify the Mailgun action to get domains (e.g., `MAILGUN_GET_DOMAINS`). You may need to query `GET /actions` first if you are unsure of the exact action name.
+4. Write the response data to `output.json`.
+
+## Constraints
+- Project path: /home/user/app
+- Do not use any third-party HTTP clients; use the built-in `fetch`.
+
+## Integrations
+- Paragon
+EOF
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

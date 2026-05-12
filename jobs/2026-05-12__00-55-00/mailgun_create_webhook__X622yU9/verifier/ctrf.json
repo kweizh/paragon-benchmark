@@ -1,0 +1,50 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 2,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778518688.512556,
+            "stop": 1778518691.2953107
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_script_exists",
+                "status": "passed",
+                "duration": 0.0004887329414486885,
+                "start": 1778518688.5224423,
+                "stop": 1778518688.5231378,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_execution",
+                "status": "passed",
+                "duration": 2.7495373748242855,
+                "start": 1778518688.5233438,
+                "stop": 1778518691.2730958,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_log_contains_success_status",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0007733437232673168,
+                "start": 1778518691.273387,
+                "stop": 1778518691.2950916,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_output_log_contains_success_status():\n        \"\"\"Verify that the script wrote a success status code to output.log.\"\"\"\n        assert os.path.isfile(LOG_PATH), f\"Log file {LOG_PATH} does not exist.\"\n    \n        with open(LOG_PATH, \"r\") as f:\n            content = f.read().strip()\n    \n>       assert \"200\" in content or \"201\" in content, f\"Expected success status code (200 or 201) in output.log, got: {content}\"\nE       AssertionError: Expected success status code (200 or 201) in output.log, got: 403\nE       assert ('200' in '403' or '201' in '403')\n\ntests/test_final_state.py:30: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

@@ -1,0 +1,71 @@
+downloading uv 0.9.7 x86_64-unknown-linux-gnu
+no checksums to verify
+installing to /root/.local/bin
+  uv
+  uvx
+everything's installed!
+
+To add $HOME/.local/bin to your PATH, either restart your shell or run:
+
+    source $HOME/.local/bin/env (sh, bash, zsh)
+    source $HOME/.local/bin/env.fish (fish)
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 19ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 3 items
+
+tests/test_final_state.py FFF                                            [100%]
+
+=================================== FAILURES ===================================
+____________________________ test_script_execution _____________________________
+
+    def test_script_execution():
+        """Priority 1: Run the user's script and verify it succeeds."""
+        assert os.path.isfile(SCRIPT_FILE), f"Script not found at {SCRIPT_FILE}"
+    
+        result = subprocess.run(
+            ["node", "fetch_events.js"],
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True
+        )
+>       assert result.returncode == 0, f"Script execution failed with error: {result.stderr}\nOutput: {result.stdout}"
+E       AssertionError: Script execution failed with error: HTTP error! Status: 403
+E         Response body: {"statusCode":403,"message":"Forbidden resource","error":"Forbidden"}
+E         
+E         Output: Sending request to Paragon ActionKit for project REDACTED...
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['node', 'fetch_events.js'], returncode=1, stdout='Sending request to Paragon ActionKit for proj...derr='HTTP error! Status: 403\nResponse body: {"statusCode":403,"message":"Forbidden resource","error":"Forbidden"}\n').returncode
+
+tests/test_final_state.py:20: AssertionError
+___________________________ test_output_file_exists ____________________________
+
+    def test_output_file_exists():
+        """Priority 3: Verify the output file is created."""
+>       assert os.path.isfile(OUTPUT_FILE), f"Output file not found at {OUTPUT_FILE}"
+E       AssertionError: Output file not found at /home/user/project/events.json
+E       assert False
+E        +  where False = <function isfile at 0x7b46f1928220>('/home/user/project/events.json')
+E        +    where <function isfile at 0x7b46f1928220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:24: AssertionError
+_____________________ test_output_file_contains_valid_json _____________________
+
+    def test_output_file_contains_valid_json():
+        """Priority 3: Verify the output file contains valid JSON."""
+>       with open(OUTPUT_FILE, "r") as f:
+             ^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/project/events.json'
+
+tests/test_final_state.py:28: FileNotFoundError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_script_execution - AssertionError: Scr...
+FAILED tests/test_final_state.py::test_output_file_exists - AssertionError: O...
+FAILED tests/test_final_state.py::test_output_file_contains_valid_json - File...
+============================== 3 failed in 1.33s ===============================

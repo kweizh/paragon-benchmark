@@ -1,0 +1,50 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 2,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778519381.1125774,
+            "stop": 1778519382.2423062
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_script_execution",
+                "status": "passed",
+                "duration": 0.7170868036337197,
+                "start": 1778519381.1241977,
+                "stop": 1778519381.8415813,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_file_exists",
+                "status": "passed",
+                "duration": 0.0005433536134660244,
+                "start": 1778519381.8418455,
+                "stop": 1778519381.8425446,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_member_deleted_via_proxy_api",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.38185454811900854,
+                "start": 1778519381.8427358,
+                "stop": 1778519382.2421012,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_member_deleted_via_proxy_api():\n        \"\"\"Use the Paragon Proxy API to verify the member was deleted (should return 404).\"\"\"\n        project_id = os.environ.get(\"PARAGON_PROJECT_ID\")\n        user_token = os.environ.get(\"PARAGON_USER_TOKEN\")\n        list_address = os.environ.get(\"MAILGUN_LIST_ADDRESS\")\n        member_address = os.environ.get(\"MAILGUN_MEMBER_ADDRESS\")\n    \n        assert project_id, \"PARAGON_PROJECT_ID is not set in environment.\"\n        assert user_token, \"PARAGON_USER_TOKEN is not set in environment.\"\n        assert list_address, \"MAILGUN_LIST_ADDRESS is not set in environment.\"\n        assert member_address, \"MAILGUN_MEMBER_ADDRESS is not set in environment.\"\n    \n        proxy_url = f\"https://proxy.useparagon.com/projects/{project_id}/sdk/proxy/mailgun\"\n        target_url = f\"https://api.mailgun.net/v3/lists/{list_address}/members/{member_address}\"\n    \n        # Use curl to get the HTTP status code\n        result = subprocess.run([\n            \"curl\", \"-s\", \"-o\", \"/dev/null\", \"-w\", \"%{http_code}\",\n            \"-H\", f\"Authorization: Bearer {user_token}\",\n            \"-H\", f\"X-Paragon-Proxy-Url: {target_url}\",\n            proxy_url\n        ], capture_output=True, text=True)\n    \n        status_code = result.stdout.strip()\n>       assert status_code == \"404\", f\"Expected HTTP status 404 (Not Found) for deleted member, but got {status_code}.\"\nE       AssertionError: Expected HTTP status 404 (Not Found) for deleted member, but got 403.\nE       assert '403' == '404'\nE         \nE         - 404\nE         + 403\n\ntests/test_final_state.py:53: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

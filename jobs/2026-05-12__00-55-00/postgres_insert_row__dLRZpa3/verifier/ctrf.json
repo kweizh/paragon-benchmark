@@ -1,0 +1,44 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 0,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778519526.2796052,
+            "stop": 1778519526.555441
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_script_execution",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.2412755424156785,
+                "start": 1778519526.2958267,
+                "stop": 1778519526.552187,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_script_execution():\n        \"\"\"Priority 3 fallback: Run the script and check if it succeeds.\"\"\"\n        result = subprocess.run(\n            [\"node\", \"index.js\"],\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True\n        )\n>       assert result.returncode == 0, f\"Script failed to execute: {result.stderr}\"\nE       AssertionError: Script failed to execute: Error: url is not defined\nE         \nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['node', 'index.js'], returncode=1, stdout='Signing Key starts with: -----BEGIN PRIVATE KEY-----...ient network socket disconnected before secure TLS connection was established\\n', stderr='Error: url is not defined\\n').returncode\n\ntests/test_final_state.py:17: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_result_file_exists_and_contains_alice",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.000702559482306242,
+                "start": 1778519526.5524545,
+                "stop": 1778519526.5552747,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_result_file_exists_and_contains_alice():\n        \"\"\"Priority 3 fallback: Check if result.json exists and contains the inserted row.\"\"\"\n        assert os.path.isfile(LOG_FILE), f\"Log file {LOG_FILE} does not exist.\"\n    \n        with open(LOG_FILE, \"r\") as f:\n            try:\n                data = json.load(f)\n            except json.JSONDecodeError:\n                pytest.fail(f\"Log file {LOG_FILE} is not valid JSON.\")\n    \n        content = json.dumps(data).lower()\n>       assert \"alice\" in content, f\"Expected 'Alice' in the query result, got: {data}\"\nE       AssertionError: Expected 'Alice' in the query result, got: {'error': 'url is not defined'}\nE       assert 'alice' in '{\"error\": \"url is not defined\"}'\n\ntests/test_final_state.py:30: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

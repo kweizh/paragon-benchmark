@@ -1,0 +1,50 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 2,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778519550.2965605,
+            "stop": 1778519552.428183
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_script_exists",
+                "status": "passed",
+                "duration": 0.0005588484928011894,
+                "start": 1778519550.3071332,
+                "stop": 1778519550.3079295,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_execution",
+                "status": "passed",
+                "duration": 2.098878823686391,
+                "start": 1778519550.3081648,
+                "stop": 1778519552.4072554,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_log_contains_success_status",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.000674175564199686,
+                "start": 1778519552.4074981,
+                "stop": 1778519552.427979,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_output_log_contains_success_status():\n        \"\"\"Verify that the script wrote a success status code to output.log.\"\"\"\n        assert os.path.isfile(LOG_PATH), f\"Log file {LOG_PATH} does not exist.\"\n    \n        with open(LOG_PATH, \"r\") as f:\n            content = f.read().strip()\n    \n>       assert \"200\" in content, f\"Expected success status code (200) in output.log, got: {content}\"\nE       AssertionError: Expected success status code (200) in output.log, got: 403\nE       assert '200' in '403'\n\ntests/test_final_state.py:30: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

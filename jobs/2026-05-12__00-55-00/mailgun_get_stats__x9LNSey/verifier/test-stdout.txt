@@ -1,0 +1,69 @@
+downloading uv 0.9.7 x86_64-unknown-linux-gnu
+no checksums to verify
+installing to /root/.local/bin
+  uv
+  uvx
+everything's installed!
+
+To add $HOME/.local/bin to your PATH, either restart your shell or run:
+
+    source $HOME/.local/bin/env (sh, bash, zsh)
+    source $HOME/.local/bin/env.fish (fish)
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 517ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 3 items
+
+tests/test_final_state.py FFF                                            [100%]
+
+=================================== FAILURES ===================================
+____________________________ test_script_execution _____________________________
+
+    def test_script_execution():
+        """Run the user script and check if it exits with 0."""
+        result = subprocess.run(
+            ["node", "index.js"],
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True
+        )
+>       assert result.returncode == 0, f"Script execution failed. stdout: {result.stdout}, stderr: {result.stderr}"
+E       AssertionError: Script execution failed. stdout: [2026-05-11T17:00:57.469Z] Fetching Mailgun stats from: https://proxy.useparagon.com/projects/REDACTED/sdk/proxy/mailgun/https://api.mailgun.net/v3/REDACTED/stats/total
+E         [2026-05-11T17:00:58.321Z] Error fetching stats: Request failed with status code 403
+E         [2026-05-11T17:00:58.321Z] Response data: {"statusCode":403,"message":"Forbidden resource","error":"Forbidden"}
+E         [2026-05-11T17:00:58.321Z] Status: 403
+E         , stderr: 
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['node', 'index.js'], returncode=1, stdout='[2026-05-11T17:00:57.469Z] Fetching Mailgun stats fr...tusCode":403,"message":"Forbidden resource","error":"Forbidden"}\n[2026-05-11T17:00:58.321Z] Status: 403\n', stderr='').returncode
+
+tests/test_final_state.py:17: AssertionError
+____________________________ test_stats_json_exists ____________________________
+
+    def test_stats_json_exists():
+        """Verify that stats.json was created."""
+>       assert os.path.isfile(STATS_FILE), f"Expected file {STATS_FILE} does not exist."
+E       AssertionError: Expected file /home/user/project/stats.json does not exist.
+E       assert False
+E        +  where False = <function isfile at 0x70af4a354220>('/home/user/project/stats.json')
+E        +    where <function isfile at 0x70af4a354220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:21: AssertionError
+___________________________ test_stats_json_content ____________________________
+
+    def test_stats_json_content():
+        """Verify that stats.json contains valid JSON with a 'stats' field."""
+>       with open(STATS_FILE, "r") as f:
+             ^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/project/stats.json'
+
+tests/test_final_state.py:25: FileNotFoundError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_script_execution - AssertionError: Scr...
+FAILED tests/test_final_state.py::test_stats_json_exists - AssertionError: Ex...
+FAILED tests/test_final_state.py::test_stats_json_content - FileNotFoundError...
+============================== 3 failed in 1.04s ===============================
