@@ -1,0 +1,14 @@
+[task]
+timeout = 3600
+image = "gmail_update_draft"
+
+[environment]
+PARAGON_PROJECT_ID = { type = "env", name = "PARAGON_PROJECT_ID" }
+PARAGON_SIGNING_KEY = { type = "env", name = "PARAGON_SIGNING_KEY" }
+
+[verifier]
+timeout = 600
+
+[verifier.environment]
+PARAGON_PROJECT_ID = { type = "env", name = "PARAGON_PROJECT_ID" }
+PARAGON_SIGNING_KEY = { type = "env", name = "PARAGON_SIGNING_KEY" }

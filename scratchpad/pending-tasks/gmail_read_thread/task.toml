@@ -1,0 +1,15 @@
+[task]
+name = "gmail_read_thread"
+description = "Read a specific thread using Paragon proxy API to Gmail and display it."
+
+[environment]
+image = "gmail_read_thread"
+
+[environment.variables]
+PARAGON_SIGNING_KEY = "dummy_key"
+PARAGON_PROJECT_ID = "dummy_project_id"
+TEST_GMAIL_THREAD_ID = "dummy_thread_id"
+
+[verifier]
+type = "python"
+entrypoint = "tests/test_final_state.py"
